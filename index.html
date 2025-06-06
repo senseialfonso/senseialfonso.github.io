@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,6 +6,9 @@
   <title>Bitácora del Sensei</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <audio id="nightAudio" preload="auto">
+    <source src="don_omar_night.mp3" type="audio/mpeg">
+  </audio>
   <style>
     :root {
       --bg-color: #f8f8f8;
@@ -57,7 +59,7 @@
       height: 34px;
     }
 
-    .switch input { 
+    .switch input {
       opacity: 0;
       width: 0;
       height: 0;
@@ -76,15 +78,12 @@
     }
 
     .slider:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: var(--bg-color);
-      transition: .4s;
-      border-radius: 50%;
+      content: "🦇";
+      font-size: 18px;
+      line-height: 34px;
+      text-align: center;
+      padding-left: 5px;
+      display: block;
     }
 
     input:checked + .slider {
@@ -147,6 +146,18 @@
       font-size: 1.5em;
       text-decoration: none;
     }
+
+    .nav-links {
+      margin-top: 2em;
+      text-align: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      margin: 0 10px;
+      color: var(--accent-color);
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -169,17 +180,12 @@
   <p class="date">Publicado el 5 de junio de 2025</p>
 
   <p>Hoy nace esto. Bueno, realmente desde anoche, que no podía dormir.</p>
-
   <p>No porque esté inspirado. Ni porque me sobre el tiempo. Pero considero que debo escribir más.</p>
-
   <p>Nace porque acabo de terminar un semestre en el que di clases de Programación, Fundamentos de Redes, Redes Emergentes (que ya ni sé qué significa), y me encontré preguntándome qué tanto de lo que recibí fue hecho por ellos... o por ChatGPT, o alguna otra IA.</p>
-
   <p>La mayoría entregó. Algunos incluso a tiempo.<br>
   ¿Lo hicieron bien? Mmm. Algunos sí, otros quién sabe.<br>
   Pero hubo un 10% que no entregó nada. Y no porque no supieran. Simplemente no lo hicieron.</p>
-
   <p>Y claro: <em>“El profe me reprobó”, estarán diciendo por ahí.</em></p>
-
   <p>No, campeón. Tú no subiste el archivo. Ni con IA, ni sin IA.</p>
 
   <blockquote>
@@ -190,21 +196,19 @@
   <p>Así que nace esta bitácora.<br>
   No como un tutorial. No como guía.<br>
   Como una necesidad de plasmar pensamientos. De hacer reflexión.</p>
-
   <p>Porque enseñar en 2025 ya no es dar respuestas.<br>
   Es enseñar a desconfiar de ellas. A sospechar del resultado inmediato.<br>
   A disfrutar el proceso, incluso cuando nadie lo ve.</p>
-
   <p>Con la mirada que le das a alguien cuando sabes que puede más… aunque ni él lo crea aún.</p>
-
   <p>Este papel de profesor cada día es más complicado.<br>
   Pero acepté el reto.</p>
-
   <p>Y aún sin IA, corregimos a mano, con un café tibio y paciencia limitada.</p>
-
   <p>Nos leemos después. Hasta que algo más pase por mi mente.</p>
-</div>
 
+  <div class="nav-links">
+    <a href="entrada002.html">→ Entrada 002</a>
+  </div>
+</div>
 
 <footer>
   <p>&copy; 2025 Sensei Alfonso – Mentor Atemporal</p>
@@ -218,8 +222,13 @@
 </footer>
 
 <script>
+  const audio = document.getElementById("nightAudio");
   function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
+    if (document.body.classList.contains("dark-mode")) {
+      audio.currentTime = 0;
+      audio.play();
+    }
   }
 </script>
 
