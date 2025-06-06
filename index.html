@@ -79,19 +79,29 @@
 
 .slider:before {
   content: "🦇";
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--bg-color);
   font-size: 18px;
-  line-height: 34px;
   text-align: center;
-  padding-left: 5px;
+  line-height: 26px;
+  border-radius: 50%;
+  transition: transform 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
     input:checked + .slider {
       background-color: var(--accent-color);
     }
 
-    input:checked + .slider:before {
-      transform: translateX(26px);
-    }
+  input:checked + .slider:before {
+  transform: translateX(26px);
+}
 
     .hero {
       background-image: url('https://source.unsplash.com/1200x400/?mentorship,technology');
