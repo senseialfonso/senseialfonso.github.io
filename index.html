@@ -242,19 +242,19 @@
   }
 </script>
   
-  <script>
-  // Contador de vistas usando LocalStorage
-  const viewCounter = document.getElementById('view-counter');
-  let views = localStorage.getItem('bitacoraViews');
+ <script>
+  const counter = document.getElementById('view-counter');
 
-  if (!views) {
-    views = 1;
-  } else {
-    views = parseInt(views) + 1;
-  }
-
-  localStorage.setItem('bitacoraViews', views);
-  viewCounter.textContent = `Vistas: ${views}`;
+  // Reemplaza 'bitacora-sensei' con un nombre único para tu página
+  fetch('https://api.countapi.xyz/hit/bitacora-sensei-alfonso/visitas')
+    .then(response => response.json())
+    .then(data => {
+      counter.textContent = `Vistas: ${data.value}`;
+    })
+    .catch(err => {
+      console.error('Error al contar vistas:', err);
+      counter.textContent = 'Vistas: error';
+    });
 </script>
 
 </body>
