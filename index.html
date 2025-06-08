@@ -187,6 +187,7 @@
 <div class="content">
   <h2>Entrada 000 – Ni el café ni la IA me salvaron</h2>
   <p class="date">Publicado el 5 de junio de 2025</p>
+  <p id="view-counter">Vistas: 0</p>
 
   <p>Hoy nace esto. Bueno, realmente desde anoche, que no podía dormir.</p>
   <p>No porque esté inspirado. Ni porque me sobre el tiempo. Pero considero que debo escribir más.</p>
@@ -239,6 +240,21 @@
       audio.play();
     }
   }
+</script>
+  
+  <script>
+  // Contador de vistas usando LocalStorage
+  const viewCounter = document.getElementById('view-counter');
+  let views = localStorage.getItem('bitacoraViews');
+
+  if (!views) {
+    views = 1;
+  } else {
+    views = parseInt(views) + 1;
+  }
+
+  localStorage.setItem('bitacoraViews', views);
+  viewCounter.textContent = `Vistas: ${views}`;
 </script>
 
 </body>
