@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Entrada 002 – Reflexiones sobre ser un buen docente</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2285%22>🤖</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <audio id="nightAudio" preload="auto">
+    <source src="don_omar_night.mp3" type="audio/mpeg">
+  </audio>
+  <style>
+    :root {
+      --bg-color: #f8f8f8;
+      --text-color: #222;
+      --accent-color: #555;
+      --card-bg: #fff;
+    }
+
+    body.dark-mode {
+      --bg-color: #1e1e1e;
+      --text-color: #f1f1f1;
+      --accent-color: #ccc;
+      --card-bg: #2e2e2e;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 2em;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    .toggle-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--accent-color);
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      content: "🦇";
+      position: absolute;
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: #ffcc00;
+      font-size: 18px;
+      text-align: center;
+      line-height: 26px;
+      border-radius: 50%;
+      transition: transform 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent-color);
+    }
+
+    .content {
+      max-width: 700px;
+      margin: auto;
+      background: var(--card-bg);
+      padding: 2em;
+      margin-top: 2em;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      font-size: 1.8em;
+      margin-top: 0;
+    }
+
+    .date {
+      font-size: 0.9em;
+      color: var(--accent-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--accent-color);
+      padding-left: 1em;
+      color: var(--accent-color);
+      font-style: italic;
+      margin: 1.5em 0;
+    }
+
+    .nav-links {
+      text-align: center;
+      margin-top: 2em;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--accent-color);
+      font-weight: bold;
+      margin: 0 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2em;
+      font-size: 0.9em;
+      color: var(--accent-color);
+    }
+
+    .social-icons {
+      margin-top: 1em;
+    }
+
+    .social-icons a {
+      color: var(--text-color);
+      margin: 0 10px;
+      font-size: 1.5em;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="toggle-switch">
+    <label class="switch">
+      <input type="checkbox" onclick="toggleDarkMode()">
+      <span class="slider"></span>
+    </label>
+  </div>
+  <h1>Bitácora del Sensei</h1>
+  <p>Reflexiones desde la experiencia técnica y humana</p>
+</header>
+
+<div class="content">
+  <h2>Entrada 002: Reflexiones sobre ser un buen docente</h2>
+  <p class="date">Publicado el 10 de junio de 2025</p>
+
+  <p>Desde la perspectiva directiva, un buen docente no es solo el que “inspira” con grandes discursos: es el que asiste a clases puntualmente, planea, ejecuta esa planeación que es difícil de cumplir, se capacita para no quedarse oxidado, atiende a su grupo sin excusas y cumple con los indicadores institucionales. Además, debe reportar evidencias aunque los formatos parezcan un castigo medieval. Como dice Alex Beard (2019), “enseñar es un arte, no una técnica” (p. 43), pero la técnica —desgraciadamente— no se va sola.</p>
+
+  <p>Para los estudiantes, sin embargo, un buen docente no es el que colecciona constancias de cursos, ni tampoco el que tiene más grados académicos. Es el que logra que aprender no se sienta como un trámite burocrático de esos lentos en filas de las 7 am. Como bien dice Mariano Sigman (2015), “la emoción es el pegamento de la memoria” (p. 208). Al final, lo que un alumno posiblemente recordará de una clase no serán las hojas de planeación o los formatos de evaluación, sino la pasión y la curiosidad que un docente logró despertar.</p>
+
+  <p>En mi experiencia como director de programas educativos, noté algo curioso —y bastante chistoso— en el campo de la ingeniería: los docentes que resultaban mejor evaluados compartían una vena friki que llevaban con orgullo. Elaboraban exámenes temáticos de Harry Potter, Marvel o alguna cosa de anime, donde cada respuesta correcta abría la puerta a un hechizo nuevo; o rallies de conocimiento con temática de las Gemas del Infinito, donde los equipos demostraban su ingenio para conseguir cada una de ellas. Sin embargo, creo que parte de la razón por la que estas dinámicas funcionaban tan bien era porque los estudiantes de ingeniería ya se movían en ese mundo: cultura geek, cultura pop y referencias épicas que encajaban perfecto con su curiosidad técnica. No estoy tan seguro de que la misma estrategia tuviera el mismo impacto en carreras como filosofía o derecho, donde el perfil y las expectativas suelen ser distintos.</p>
+
+  <p>Y en este mundo de modernidad líquida —donde todo cambia más rápido que la versión de ChatGPT — una clave es no quedarse aferrado a métodos que se derriten antes de que puedas aprenderlos. La modernidad líquida, como la definió Bauman, nos recuerda que las condiciones y las reglas cambian constantemente, antes de que se asienten en rutinas. Por eso, un buen docente no se aferra a lo que “siempre ha funcionado” -miren que he escuchado esa frase mucho últimamente-; aprende a adaptarse, encuentra nuevas formas de enganchar a los estudiantes y hace que el aprendizaje deje huella en medio de tanto cambio.</p>
+
+  <p>La conclusión es sencilla: ser buen docente no significa ser un influencer de anime ni una vaca sagrada que colecciona constancias. Significa tener la flexibilidad y la empatía para que el aprendizaje sea algo más que un trámite. Y, si además de reportar evidencias sabes cómo meter a los alumnos en la historia épica de las Gemas del Infinito o de Hogwarts, bueno… entonces es probable que también logres que la clase no se olvide tan fácil.</p>
+
+  <div class="nav-links">
+    <a href="entrada001.html">&larr; Entrada 001</a>
+    <a href="entrada003.html">&rarr; Entrada 003</a>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Sensei Alfonso – Mentor Atemporal</p>
+  <div class="social-icons">
+    <a href="https://www.facebook.com/AlfonsoM1guel/"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.tiktok.com/@sensei_alfonso"><i class="fab fa-tiktok"></i></a>
+    <a href="https://www.youtube.com/@SenseiAlfonso"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.instagram.com/alfonsomiguel1/"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.linkedin.com/in/alfonso-miguel/"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+</footer>
+
+<script>
+  const audio = document.getElementById("nightAudio");
+  function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    if (document.body.classList.contains("dark-mode")) {
+      audio.currentTime = 0;
+      audio.play();
+    }
+  }
+</script>
+
+</body>
+</html>
