@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_a54d6adf94c91847e5279dab7892b963 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@master/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_a54d6adf94c91847e5279dab7892b963" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_a54d6adf94c91847e5279dab7892b963 = L.map(
+                "map_a54d6adf94c91847e5279dab7892b963",
+                {
+                    center: [0.0, 120.0],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 4,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_242f7774e22328d11dc17be676220cd6 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_a54d6adf94c91847e5279dab7892b963);
+        
+    
+            var heat_map_a4d762ae41ac4473f5b081d612ded7f0 = L.heatLayer(
+                [[16.3965, 120.3331], [16.0167, 120.3667], [14.4793, 121.0198], [-8.4333, 115.2667], [-8.5402, 115.1255], [-6.3478, 106.7383], [-6.2251, 106.9004], [-0.0206, 109.3414]],
+                {"blur": 15, "maxZoom": 18, "minOpacity": 0.5, "radius": 25}
+            ).addTo(map_a54d6adf94c91847e5279dab7892b963);
+        
+    
+            var marker_4cc47964b3642198231c19817341257c = L.marker(
+                [16.3965, 120.3331],
+                {}
+            ).addTo(map_a54d6adf94c91847e5279dab7892b963);
+        
+    
+        var popup_45c636f9758675713a5220a798e4d0b4 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_97beadba34a79f7978363e0c52266f8c = $(`<div id="html_97beadba34a79f7978363e0c52266f8c" style="width: 100.0%; height: 100.0%;">Aringay, La Union (Philippines)</div>`)[0];
+            popup_45c636f9758675713a5220a798e4d0b4.setContent(html_97beadba34a79f7978363e0c52266f8c);
+        
+
+        marker_4cc47964b3642198231c19817341257c.bindPopup(popup_45c636f9758675713a5220a798e4d0b4)
+        ;
+
+        
+    
+    
+            var marker_49f0bc2d26213d6a35ca4c9118813e29 = L.marker(
+                [16.0167, 120.3667],
+                {}
+            ).addTo(map_a54d6adf94c91847e5279dab7892b963);
+        
+    
+        var popup_0642616fc4f7c2650e44dba25277882f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_9c6fb6326e1e26c20588247862140ebb = $(`<div id="html_9c6fb6326e1e26c20588247862140ebb" style="width: 100.0%; height: 100.0%;">Calasiao, Pangasinan (Philippines)</div>`)[0];
+            popup_0642616fc4f7c2650e44dba25277882f.setContent(html_9c6fb6326e1e26c20588247862140ebb);
+        
+
+        marker_49f0bc2d26213d6a35ca4c9118813e29.bindPopup(popup_0642616fc4f7c2650e44dba25277882f)
+        ;
+
+        
+    
+    
+            var marker_1dea1cab7df2bf8ce5f2cd551d142a07 = L.marker(
+                [14.4793, 121.0198],
+                {}
+            ).addTo(map_a54d6adf94c91847e5279dab7892b963);
+        
+    
+        var popup_6f33630d44bd7d5071f6a6602be460bd = L.popup({"maxWidth": "100%"});
+
+        
+            var html_3a8ad8f4913299be4909e7b94809d0bc = $(`<div id="html_3a8ad8f4913299be4909e7b94809d0bc" style="width: 100.0%; height: 100.0%;">Paranaque City, Paranaque City (Philippines)</div>`)[0];
+            popup_6f33630d44bd7d5071f6a6602be460bd.setContent(html_3a8ad8f4913299be4909e7b94809d0bc);
+        
+
+        marker_1dea1cab7df2bf8ce5f2cd551d142a07.bindPopup(popup_6f33630d44bd7d5071f6a6602be460bd)
+        ;
+
+        
+    
+    
+            var marker_72ed6afb98c897357262478162b54553 = L.marker(
+                [-8.4333, 115.2667],
+                {}
+            ).addTo(map_a54d6adf94c91847e5279dab7892b963);
+        
+    
+        var popup_995553a14aea5c54a088dbdb825f46c3 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_73eb4c8e06d155535f8b74069c1fca03 = $(`<div id="html_73eb4c8e06d155535f8b74069c1fca03" style="width: 100.0%; height: 100.0%;">Gianyar, Bali (Indonesia)</div>`)[0];
+            popup_995553a14aea5c54a088dbdb825f46c3.setContent(html_73eb4c8e06d155535f8b74069c1fca03);
+        
+
+        marker_72ed6afb98c897357262478162b54553.bindPopup(popup_995553a14aea5c54a088dbdb825f46c3)
+        ;
+
+        
+    
+    
+            var marker_0885fa45f9754aab60c4828215e0ea78 = L.marker(
+                [-8.5402, 115.1255],
+                {}
+            ).addTo(map_a54d6adf94c91847e5279dab7892b963);
+        
+    
+        var popup_10c17e99b59d14d58ba983e2c41698dd = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a63c53dcb5c0668ce656cfc43cdbdc00 = $(`<div id="html_a63c53dcb5c0668ce656cfc43cdbdc00" style="width: 100.0%; height: 100.0%;">Tabanan, Bali (Indonesia)</div>`)[0];
+            popup_10c17e99b59d14d58ba983e2c41698dd.setContent(html_a63c53dcb5c0668ce656cfc43cdbdc00);
+        
+
+        marker_0885fa45f9754aab60c4828215e0ea78.bindPopup(popup_10c17e99b59d14d58ba983e2c41698dd)
+        ;
+
+        
+    
+    
+            var marker_ecf8bffd64ae479675cc47705fa3863d = L.marker(
+                [-6.3478, 106.7383],
+                {}
+            ).addTo(map_a54d6adf94c91847e5279dab7892b963);
+        
+    
+        var popup_0ee23dc3b1cba6360c1200df6e7c8cdd = L.popup({"maxWidth": "100%"});
+
+        
+            var html_afb96f5f672dd7f01a576f246775597c = $(`<div id="html_afb96f5f672dd7f01a576f246775597c" style="width: 100.0%; height: 100.0%;">South Tagerang, Pamulang (Indonesia)</div>`)[0];
+            popup_0ee23dc3b1cba6360c1200df6e7c8cdd.setContent(html_afb96f5f672dd7f01a576f246775597c);
+        
+
+        marker_ecf8bffd64ae479675cc47705fa3863d.bindPopup(popup_0ee23dc3b1cba6360c1200df6e7c8cdd)
+        ;
+
+        
+    
+    
+            var marker_741e5b0a11d3add8b61bad334457072e = L.marker(
+                [-6.2251, 106.9004],
+                {}
+            ).addTo(map_a54d6adf94c91847e5279dab7892b963);
+        
+    
+        var popup_c658cc75ccc08ea773a0cb4662199094 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_db479ccc5ccc92bdc65c8ac7a951fd0d = $(`<div id="html_db479ccc5ccc92bdc65c8ac7a951fd0d" style="width: 100.0%; height: 100.0%;">Jakarta Timur, Jakarta (Indonesia)</div>`)[0];
+            popup_c658cc75ccc08ea773a0cb4662199094.setContent(html_db479ccc5ccc92bdc65c8ac7a951fd0d);
+        
+
+        marker_741e5b0a11d3add8b61bad334457072e.bindPopup(popup_c658cc75ccc08ea773a0cb4662199094)
+        ;
+
+        
+    
+    
+            var marker_97bdcfd6f38f02a4d30e0e20263f2a33 = L.marker(
+                [-0.0206, 109.3414],
+                {}
+            ).addTo(map_a54d6adf94c91847e5279dab7892b963);
+        
+    
+        var popup_efa5eb7a4f83fe4dba2cff21a42191ea = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0c35a7663bf432351aed12a2a49abfaa = $(`<div id="html_0c35a7663bf432351aed12a2a49abfaa" style="width: 100.0%; height: 100.0%;">Pontianak, West Kalimantan Province (Indonesia)</div>`)[0];
+            popup_efa5eb7a4f83fe4dba2cff21a42191ea.setContent(html_0c35a7663bf432351aed12a2a49abfaa);
+        
+
+        marker_97bdcfd6f38f02a4d30e0e20263f2a33.bindPopup(popup_efa5eb7a4f83fe4dba2cff21a42191ea)
+        ;
+
+        
+    
+</script>
+</html>
