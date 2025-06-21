@@ -156,6 +156,23 @@
 <div class="content">
   <h2>Entrada 004: Le debo al SAT, pero también le debo a ChatGPT: Deuda cognitiva</h2>
   <p class="date">Publicado el 20 de junio de 2025</p>
+    <span id="visitas">No. Vistas: ...</span>
+<script>
+  const pagina = location.pathname.split("/").pop() || "index.html";
+
+  console.log("Página actual:", pagina);
+
+  fetch("https://script.google.com/macros/s/AKfycbzKLr9S9DJ8m6jzPkNt1AALcA4BxpnXS7bl8ToWZfBdZk1F2Si6EzCGJPSKKYQ8GXP2rw/exec?pagina=" + encodeURIComponent(pagina))
+    .then(res => res.json())
+    .then(data => {
+      if (data.visitas !== undefined) {
+        document.getElementById("visitas").textContent = `Vistas: ${data.visitas}`;
+      } else {
+        document.getElementById("visitas").textContent = `Visitas: error`;
+        console.error("Respuesta del servidor:", data);
+      }
+    });
+</script>
 
   <p>En México, el SAT es una constante emocional. No importa si eres asalariado, freelance, estudiante emprendedor o tiktoker: el SAT te encuentra. No solo recauda —también educa, corrige y te hace pagar por equivocarte. Y lo hace con estilo: hay impuestos que no puedes deducir, declaraciones que siempre salen “con saldo a favor del SAT” y una sensación permanente de estar endeudado con el sistema… aunque no sepas exactamente por qué.</p>
 
