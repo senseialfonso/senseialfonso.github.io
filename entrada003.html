@@ -177,6 +177,23 @@
 <div class="content">
   <h2>Entrada 003: ¿Y si la IA no es el problema sino el modelo educativo?</h2>
   <p class="date">Publicado el 17 de junio de 2025</p>
+    <span id="visitas">No. Vistas: ...</span>
+<script>
+  const pagina = location.pathname.split("/").pop() || "index.html";
+
+  console.log("Página actual:", pagina);
+
+  fetch("https://script.google.com/macros/s/AKfycbzKLr9S9DJ8m6jzPkNt1AALcA4BxpnXS7bl8ToWZfBdZk1F2Si6EzCGJPSKKYQ8GXP2rw/exec?pagina=" + encodeURIComponent(pagina))
+    .then(res => res.json())
+    .then(data => {
+      if (data.visitas !== undefined) {
+        document.getElementById("visitas").textContent = `Vistas: ${data.visitas}`;
+      } else {
+        document.getElementById("visitas").textContent = `Visitas: error`;
+        console.error("Respuesta del servidor:", data);
+      }
+    });
+</script>
 
   <p>Hace algunos días me invitaron a dar una conferencia llamada <strong>“El dilema ético de la ciencia, la tecnología y la Inteligencia Artificial (IA) en educación.”</strong> Un título que suena a comité académico con traje formal y opiniones en voz baja.</p>
 
