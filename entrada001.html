@@ -178,13 +178,20 @@
   <h2>Entrada 001 – ¿Por qué soy sensei?</h2>
   <p class="date">Publicado el 7 de junio de 2025</p>
   <span id="visitas">Cargando visitas...</span>
-
 <script>
-  const pagina = location.pathname.split("/entrada001.html").pop(); // ej: entrada004.html
-  fetch("https://script.google.com/macros/s/AKfycbzKLr9S9DJ8m6jzPkNt1AALcA4BxpnXS7bl8ToWZfBdZk1F2Si6EzCGJPSKKYQ8GXP2rw/exec?pagina=" + pagina)
+  const pagina = location.pathname.split("/").pop() || "index.html";
+
+  console.log("Página actual:", pagina);
+
+  fetch("https://script.google.com/macros/s/AKfycbzKLr9S9DJ8m6jzPkNt1AALcA4BxpnXS7bl8ToWZfBdZk1F2Si6EzCGJPSKKYQ8GXP2rw/exec?pagina=" + encodeURIComponent(pagina))
     .then(res => res.json())
     .then(data => {
-      document.getElementById("visitas").textContent = `Visitas: ${data.visitas}`;
+      if (data.visitas !== undefined) {
+        document.getElementById("visitas").textContent = `Visitas: ${data.visitas}`;
+      } else {
+        document.getElementById("visitas").textContent = `Visitas: error`;
+        console.error("Respuesta del servidor:", data);
+      }
     });
 </script>
 
