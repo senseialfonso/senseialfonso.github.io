@@ -181,7 +181,7 @@
 
 <script>
   const pagina = location.pathname.split("/entrada001.html").pop(); // ej: entrada004.html
-  fetch("https://script.google.com/macros/s/TU_ID/exec?pagina=" + pagina)
+  fetch("https://script.google.com/macros/s/AKfycbzKLr9S9DJ8m6jzPkNt1AALcA4BxpnXS7bl8ToWZfBdZk1F2Si6EzCGJPSKKYQ8GXP2rw/exec?pagina=" + pagina)
     .then(res => res.json())
     .then(data => {
       document.getElementById("visitas").textContent = `Visitas: ${data.visitas}`;
