@@ -188,15 +188,16 @@
   <h2>Entrada 000 – Ni el café ni la IA me salvaron</h2>
   <p class="date">Publicado el 5 de junio de 2025</p>
   <p id="view-counter">Vistas: 0</p>
-  <span id="visitas">Cargando visitas...</span>
+<span id="visitas">Cargando visitas...</span>
 
 <script>
-fetch("https://script.google.com/macros/s/AKfycbzuOflW46DD8m1PTQrKEZMUV6iIa0Pj0-7j1IMGKsvKgo1gqcyP1QEG99SNW1LcSsh_qg/exec")
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("visitas").textContent = `Visitas: ${data.visitas}`;
-  });
-</script>
+  const pagina = location.pathname.split("/index.html").pop(); // ej: entrada004.html
+  fetch("https://script.google.com/macros/s/TU_ID/exec?pagina=" + pagina)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("visitas").textContent = `Visitas: ${data.visitas}`;
+    });
+</script>>
 
   <p>Hoy nace esto. Bueno, realmente desde anoche, que no podía dormir.</p>
   <p>No porque esté inspirado. Ni porque me sobre el tiempo. Pero considero que debo escribir más.</p>
