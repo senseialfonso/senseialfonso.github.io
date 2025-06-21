@@ -179,6 +179,23 @@
 <div class="content">
   <h2>Entrada 002: Reflexiones sobre ser un buen docente</h2>
   <p class="date">Publicado el 10 de junio de 2025</p>
+    <span id="visitas">No. Vistas: ...</span>
+<script>
+  const pagina = location.pathname.split("/").pop() || "index.html";
+
+  console.log("Página actual:", pagina);
+
+  fetch("https://script.google.com/macros/s/AKfycbzKLr9S9DJ8m6jzPkNt1AALcA4BxpnXS7bl8ToWZfBdZk1F2Si6EzCGJPSKKYQ8GXP2rw/exec?pagina=" + encodeURIComponent(pagina))
+    .then(res => res.json())
+    .then(data => {
+      if (data.visitas !== undefined) {
+        document.getElementById("visitas").textContent = `Vistas: ${data.visitas}`;
+      } else {
+        document.getElementById("visitas").textContent = `Visitas: error`;
+        console.error("Respuesta del servidor:", data);
+      }
+    });
+</script>
 
   <p>Desde la perspectiva directiva, un buen docente no es solo el que “inspira” con grandes discursos: es el que asiste a clases puntualmente, planea, ejecuta esa planeación que es difícil de cumplir, se capacita para no quedarse oxidado, atiende a su grupo sin excusas y cumple con los indicadores institucionales. Además, debe reportar evidencias aunque los formatos parezcan un castigo medieval. Como dice Alex Beard (2019), “enseñar es un arte, no una técnica” (p. 43), pero la técnica —desgraciadamente— no se va sola.</p>
 
