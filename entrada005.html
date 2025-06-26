@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Entrada 005 – DocencIA 2.0: Diseñar un curso en tiempos de IA, memoria y sed digital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2285%22>🤖</text></svg>" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <style>
+    /* Aquí puedes incluir tus estilos CSS comunes */
+  </style>
+</head>
+<body>
+  <header>
+    <div class="toggle-switch">
+      <label class="switch">
+        <input type="checkbox" onclick="toggleDarkMode()" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <h1>Bitácora del Sensei</h1>
+    <p>¿Qué pasa cuando enseñar ya no es dar respuestas, sino enseñar a desconfiar de ellas?</p>
+  </header>
+
+  <div class="content">
+    <h2>Entrada 005: DocencIA 2.0: Un nuevo curso por impartir...</h2>
+    <p class="date">Publicado el 25 de junio de 2025</p>
+    <span id="visitas">Vistas: ...</span>
+    <script>
+      const pagina = location.pathname.split("/").pop() || "index.html";
+      fetch(
+        "https://script.google.com/macros/s/AKfycbzKLr9S9DJ8m6jzPkNt1AALcA4BxpnXS7bl8ToWZfBdZk1F2Si6EzCGJPSKKYQ8GXP2rw/exec?pagina=" +
+          encodeURIComponent(pagina)
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.visitas !== undefined) {
+            document.getElementById("visitas").textContent = `Vistas: ${data.visitas}`;
+          } else {
+            document.getElementById("visitas").textContent = `Visitas: error`;
+            console.error("Respuesta del servidor:", data);
+          }
+        });
+    </script>
+
+    <p>
+      Hace un año impartí el curso <em>DocencIA: Herramientas de IA para la Docencia</em> en el Instituto Tecnológico de Salina Cruz. En ese momento,
+      las herramientas funcionaban, los docentes exploraban, y las IAs aún eran novedad. Además, todavía no se pagaba tanto por usarlas.
+    </p>
+
+    <p>
+      Hoy, con DocencIA 2.0 (un nuevo curso), las cosas son distintas. No porque la educación haya cambiado radicalmente, sino porque las IAs ya no solo
+      responden: ahora predicen, completan, corrigen, narran, ilustran... y probablemente también te pueden decir si estás en una depresión funcional o
+      si solo necesitas dormir.
+    </p>
+
+    <p>
+      En un solo año, ChatGPT pasó de ser el becario brillante que te ayudaba con tareas, a convertirse en un asistente pedagógico con memoria, sentido
+      del humor y —según algunos reportes— una preocupante sed de agua. Sí, consume más litros que toda la planta docente en una jornada... y yo hay días
+      en los que ni agua tengo en casa.
+    </p>
+
+    <p>
+      Volver a impartir este curso no es una repetición. Es una gran responsabilidad. Significa que alguien confía en que puedo guiar a otros en medio de
+      este campo minado de herramientas, modas, expectativas y oportunistas. No se trata solo de dar clics o mostrar pantallas; es como tomar el timón de
+      un barco en plena tormenta digital, lleno de unos y ceros, con docentes que a veces ni sabían que ya estaban navegando en altamar.
+    </p>
+
+    <p>
+      Comienzo como siempre: escuchando. Esta vez, analicé las expectativas de quienes tomaron la versión anterior. Las respuestas iban desde “quiero
+      aprender Copilot” hasta “evaluar matemáticas con IA”, o simplemente “quiero aprender más”. Algunas decían “TODO”, otras solo “IA”. Y eso también
+      dice mucho.
+    </p>
+
+    <p>
+      Revisé lo que ya habíamos hecho: un curso sobre detección de plagio, creación de imágenes, introducción a ChatGPT. Bien, cubierto. Pero esta vez,
+      necesitábamos ir más profundo. Más allá del clásico: “¿esto lo escribió ChatGPT?”.
+    </p>
+
+    <p>
+      Entonces comparo. Miro lo que hacen el MIT, Stanford, el Tec de Monterrey. ¿Cómo aplican la IA a la docencia? ¿Qué están dejando fuera? Pero también sé
+      que no podemos importar soluciones sin importar primero el contexto. Nuestras aulas no siempre tienen internet, como para montar un concierto
+      sinfónico entre docente, computadora e IA. Nuestros docentes tienen experiencia, sí... pero también rutinas muy arraigadas. Aquí, la innovación
+      tiene que ser viable o no es nada.
+    </p>
+
+    <p>
+      El temario de DocencIA 2.0 no es un menú decorativo. Es un esqueleto diseñado para sostener la práctica real. No lo armé por moda ni por capricho. Se
+      construyó a partir de tres preguntas clave:
+    </p>
+
+    <ul>
+      <li>¿Qué desgasta más al docente?</li>
+      <li>¿Qué necesitamos mejorar con urgencia?</li>
+      <li>¿Qué puede potenciar la IA de forma significativa?</li>
+    </ul>
+
+    <p>Así surgieron los tres ejes del curso:</p>
+
+    <p><strong>Planeación didáctica con IA.</strong> Porque si no planeas bien, a veces ni tú logras resolver el ejercicio que pusiste en el pizarrón.</p>
+    <p><strong>Evaluación formativa y retroalimentación efectiva.</strong> Porque revisar 50 trabajos con pluma roja no es retroalimentar, es sobrevivir.</p>
+    <p><strong>Pensamiento crítico.</strong> Porque en tiempos de sobreinformación, pensar bien es más valioso que saber mucho.</p>
+
+    <p>
+      Este último punto —el pensamiento crítico— es también donde el curso se alinea más profundamente con el Modelo Educativo del TecNM. Su enfoque por
+      competencias exige que el estudiante no solo acumule conocimiento, sino que sepa cuestionarlo, aplicarlo y reinterpretarlo.
+      Y la IA, si no se usa con criterio, puede convertirse en otra fábrica de respuestas vacías y sin contexto.
+    </p>
+
+    <h3>¿Hacia dónde va la educación con IA?</h3>
+
+    <p>
+      No hacia reemplazar docentes. (Bueno, quizá sí en algún escenario de educación 100% en línea, y aún así...).
+      Pero definitivamente no se trata de automatizar todo. Se trata de ampliar el alcance del pensamiento humano, no de ahogarlo en asistentes virtuales.
+      Hacia clases más enfocadas en analizar, crear y debatir, y menos en transcribir o calificar a mano.
+    </p>
+
+    <p>
+      Yo sigo creyendo que el juicio pedagógico no se puede automatizar. Pero sí se puede acompañar, potenciar, refinar.
+      Por eso cada módulo tiene un "para qué" claro.
+      Y sí, también hice el logotipo. Y el eslogan. Porque un curso sin identidad se olvida más rápido que ese estudiante que nunca participó en clase... y aún así aprobó.
+    </p>
+
+    <div class="nav-links">
+      <a href="entrada004.html">&larr; Entrada 004</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Sensei Alfonso – Mentor Atemporal</p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/AlfonsoM1guel/"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.tiktok.com/@sensei_alfonso"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.youtube.com/@SenseiAlfonso"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.instagram.com/alfonsomiguel1/"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/alfonso-miguel/"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      // Aquí puedes agregar audio o más lógica si usas
+    }
+  </script>
+</body>
+</html>
