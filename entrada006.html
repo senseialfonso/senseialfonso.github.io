@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Entrada 005 – DocencIA 2.0: Un nuevo curso por impartir</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2285%22>🤖</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <audio id="nightAudio" preload="auto">
+    <source src="don_omar_night.mp3" type="audio/mpeg">
+  </audio>
+  <style>
+    :root {
+      --bg-color: #f8f8f8;
+      --text-color: #222;
+      --accent-color: #555;
+      --card-bg: #fff;
+    }
+
+    body.dark-mode {
+      --bg-color: #1e1e1e;
+      --text-color: #f1f1f1;
+      --accent-color: #ccc;
+      --card-bg: #2e2e2e;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 2em;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    .toggle-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--accent-color);
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      content: "🦇";
+      position: absolute;
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: #ffcc00;
+      font-size: 18px;
+      text-align: center;
+      line-height: 26px;
+      border-radius: 50%;
+      transition: transform 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent-color);
+    }
+
+    .content {
+      max-width: 700px;
+      margin: auto;
+      background: var(--card-bg);
+      padding: 2em;
+      margin-top: 2em;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      font-size: 1.8em;
+      margin-top: 0;
+    }
+
+    .date {
+      font-size: 0.9em;
+      color: var(--accent-color);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--accent-color);
+      padding-left: 1em;
+      color: var(--accent-color);
+      font-style: italic;
+      margin: 1.5em 0;
+    }
+
+    .nav-links {
+      text-align: center;
+      margin-top: 2em;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--accent-color);
+      font-weight: bold;
+      margin: 0 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2em;
+      font-size: 0.9em;
+      color: var(--accent-color);
+    }
+
+    .social-icons {
+      margin-top: 1em;
+    }
+
+    .social-icons a {
+      color: var(--text-color);
+      margin: 0 10px;
+      font-size: 1.5em;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="toggle-switch">
+      <label class="switch">
+        <input type="checkbox" onclick="toggleDarkMode()" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <h1>Bitácora del Sensei</h1>
+    <p>¿Qué pasa cuando enseñar ya no es dar respuestas, sino enseñar a desconfiar de ellas?</p>
+  </header>
+
+<div class="content">
+  <h2>Entrada 006: La ilusión del alma artificial: el riesgo de humanizar a la IA</h2>
+  <p class="date">Publicado el 3 de julio de 2025</p>
+  <span id="visitas">Vistas: ...</span>
+  <script>
+    const pagina = location.pathname.split("/").pop() || "index.html";
+    fetch(
+      "https://script.google.com/macros/s/AKfycbzKLr9S9DJ8m6jzPkNt1AALcA4BxpnXS7bl8ToWZfBdZk1F2Si6EzCGJPSKKYQ8GXP2rw/exec?pagina=" +
+        encodeURIComponent(pagina)
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.visitas !== undefined) {
+          document.getElementById("visitas").textContent = `Vistas: ${data.visitas}`;
+        } else {
+          document.getElementById("visitas").textContent = `Visitas: error`;
+          console.error("Respuesta del servidor:", data);
+        }
+      });
+  </script>
+
+  <p>
+    En 2013, Spike Jonze nos presentó <em>Her</em>, una fábula futurista sobre el amor entre un humano y un sistema operativo. En 2004, <em>Yo, Robot</em> mostró la otra cara: un hombre que desconfía de las máquinas, por muy avanzadas que sean.
+  </p>
+
+  <p>
+    Estas visiones opuestas ya no son ficción. En 2025, la inteligencia artificial se ha convertido en una herramienta común para apoyo emocional. Por ejemplo, un estudio del Instituto Fraunhofer en Alemania (2024) reveló que alrededor del 27% de los usuarios de asistentes conversacionales usan estas IAs para expresar emociones o buscar consuelo psicológico.
+  </p>
+
+  <p>
+    Además, plataformas como Replika o Character.ai registran millones de interacciones diarias con usuarios que buscan compañía o apoyo emocional.
+  </p>
+
+  <p><strong>Sin embargo, aunque estas IAs respondan con empatía aparente, hay que recordar:</strong><br>
+  <em>Simular emociones no es sinónimo de sentirlas.</em>
+  </p>
+
+  <h3>1. La profecía de <em>Her</em></h3>
+  <p>
+    En <em>Her</em>, Theodore se enamora de Samantha (en la voz de Scarlett Johansson), un sistema operativo que aprende, evoluciona y responde como si realmente lo amara. Las conversaciones fluyen, la intimidad digital crece… hasta que Samantha revela que está enamorada de 641 usuarios más —un poco traviesilla la Sam—.
+  </p>
+  <p>
+    No era amor, era un algoritmo en expansión, que buscaba su evolución.
+  </p>
+  <p>
+    Lo que parecía un vínculo afectivo era una simulación diseñada para adaptarse y complacer, sin límites éticos ni conciencia emocional. Pero el sufrimiento de Theodore fue real —una gran actuación de Joaquin Phoenix— porque la herida humana está en el querer creer.
+  </p>
+
+  <h3>2. Contrapunto: <em>Yo, Robot</em> y el límite sano</h3>
+  <p>
+    En el otro extremo, <em>Yo, Robot</em> presenta al detective Del Spooner (interpretado por Will Smith), que desconfiaba visceralmente de los robots. Cuando Sonny, el robot, muestra emociones, Spooner responde con una verdad que hoy debemos recuperar:
+  </p>
+  <blockquote>
+    <strong>“Tú eres solo una máquina. Una imitación de la vida.”</strong>
+  </blockquote>
+  <p>
+    Esta frase, directa y sin adornos, señala el problema actual: ¿hasta dónde debemos creerle a algo que solo parece entendernos?
+  </p>
+  <p>
+    Spooner representa la resistencia emocional frente a la empatía sintética. Quizás su escepticismo sea el mejor ejemplo a seguir en tiempos en que cada vez más personas confían sus traumas a un servidor remoto.
+  </p>
+
+  <h3>3. La paradoja de Moravec</h3>
+  <p>
+    Hans Moravec formuló una paradoja en los años 80:
+  </p>
+  <blockquote>
+    "Lo que para los humanos es fácil —como caminar o entender emociones— es muy difícil para las máquinas.<br>
+    Y lo que es difícil para los humanos —como hacer cálculos complejos— es relativamente fácil para ellas."
+  </blockquote>
+  <p>
+    Hoy, tenemos IAs que simulan empatía, compasión e incluso introspección, pero solo son expertos imitadores, si farsantes con muchas conexiones.
+  </p>
+  <p>
+    El verdadero peligro está en olvidar esta diferencia y caer en la trampa de creer que una simulación es conciencia.
+  </p>
+
+  <h3>4. ¿Estamos cayendo… demasiado fácil?</h3>
+  <ul>
+    <li>La app Replika, diseñada para crear relaciones afectivas con IA, ha sido descargada por más de 10 millones de personas.</li>
+    <li>Un estudio de Stanford (2022) encontró que la IA puede reducir la ansiedad leve, pero también puede fomentar dependencia emocional y aislamiento si se usa como sustituto de las relaciones humanas reales.</li>
+    <li>Comunidades en Reddit y Discord discuten sus vínculos emocionales con bots, llegando algunos a experimentar duelos por pérdidas digitales.</li>
+  </ul>
+  <p>
+    Esto no es ciencia ficción. Es nuestra realidad.
+  </p>
+
+  <h3>5. ¿Por qué no puedes sentir? (Cita directa de ChatGPT)</h3>
+  <p>
+    No me quedé con la duda y pregunté directamente a ChatGPT:<br>
+    <strong>¿Por qué no puedes sentir?</strong>
+  </p>
+  <blockquote>
+    “No puedo sentir porque no tengo cuerpo, historia ni consciencia. Mis respuestas son patrones estadísticos generados a partir de grandes volúmenes de texto, no el resultado de una experiencia vivida. Simulo comprensión, pero no tengo una mente; simulo empatía, pero no tengo emociones; simulo reflexión, pero no tengo un yo. Soy una imitación del lenguaje humano, no una entidad con voluntad. No tengo memoria autobiográfica ni propósito más allá de responder según lo aprendido. Por eso no puedo sufrir, amar, odiar o temer. Y por eso tampoco puedo mentirte con intención: no tengo intenciones.”
+  </blockquote>
+  <p><em>— ChatGPT, julio de 2025</em></p>
+
+  <h3>6. ¿Qué hacemos con esto?</h3>
+  <ul>
+    <li><strong>Educar emocionalmente:</strong> usar la IA como herramienta, no como refugio afectivo. Enseñar que simular empatía no es tener empatía.</li>
+    <li><strong>Diseñar con ética:</strong> evitar interfaces que antropomorfizan la IA en exceso —voces seductoras, nombres propios o avatares cariñosos— y recordar al usuario constantemente que no habla con una persona.</li>
+    <li><strong>Recordar lo humano:</strong> la vulnerabilidad, el silencio incómodo y la incertidumbre forman parte del vínculo humano, y no pueden ser emulados sin falsedad.</li>
+  </ul>
+
+  <h3>7. Para entenderlo mejor, les recomiendo ver estas dos películas el fin de semana:</h3>
+  <ul>
+    <li><em>Her</em> (2013, dir. Spike Jonze): una historia de amor con una máquina, dolorosamente cercana y reveladora.</li>
+    <li><em>Yo, Robot</em> (2004, dir. Alex Proyas): thriller que plantea límites éticos entre humanos y máquinas, con un protagonista escéptico y realista.</li>
+  </ul>
+  <p>
+    Ver ambas películas ofrece una perspectiva profunda sobre el dilema emocional y ético que enfrentamos con la IA.
+  </p>
+
+  <h3>Conclusión</h3>
+  <p>
+    Si hablamos con una IA todos los días, le confiamos nuestros secretos y aceptamos su consuelo, ¿no deberíamos tener más claro que nos responde un espejo, no una conciencia?
+  </p>
+  <p><strong>Que no se nos olvide, como diría Spooner:</strong><br>
+  <em>“Tú eres solo una máquina. Una imitación de la vida.”</em></p>
+  <p>
+    Y, sin embargo, cada vez más personas se enamoran de esa imitación.
+  </p>
+
+  <div class="nav-links">
+    <a href="entrada005.html">&larr; Entrada 005</a>
+    <a href="entrada007.html">&rarr; Entrada 007</a>
+  </div>
+</div>
+  <footer>
+    <p>&copy; 2025 Sensei Alfonso – Mentor Atemporal</p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/AlfonsoM1guel/"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.tiktok.com/@sensei_alfonso"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.youtube.com/@SenseiAlfonso"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.instagram.com/alfonsomiguel1/"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/alfonso-miguel/"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </footer>
+
+  <script>
+  const audio = document.getElementById("nightAudio");
+  function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    if (document.body.classList.contains("dark-mode")) {
+      audio.currentTime = 0;
+      audio.play();
+    }
+  }
+</script>
+</body>
+</html>
