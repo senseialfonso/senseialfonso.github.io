@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información Financiera Personal</title>
+    <style>
+        /* Variables CSS para la paleta de colores */
+        :root {
+            --frostbite: #EC3AAA;
+            --hot-pink: #FF64B8;
+            --pale-magenta-pink: #FF98CE;
+            --mimi-pink: #FFDBE9;
+            --barbie-pink: #E11B8D;
+        }
+
+        /* Estilos Generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: var(--mimi-pink); /* Fondo suave */
+            color: #333; /* Texto oscuro para legibilidad */
+        }
+
+        header {
+            background-color: var(--hot-pink); /* Un rosa vibrante para la cabecera */
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            color: #fff; /* Texto blanco para contraste */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #fff; /* Título principal en blanco */
+            margin: 0;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        section {
+            background-color: #fff; /* El blanco funciona bien para el contenido principal */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra más pronunciada para un look más moderno */
+            flex: 1 1 calc(50% - 20px);
+            min-width: 400px;
+            border: 1px solid var(--pale-magenta-pink); /* Borde suave */
+        }
+
+        /* Ajuste para la sección de "Otros Gastos" */
+        .otros-gastos-section {
+            flex: 1 1 calc(33% - 20px);
+            min-width: 300px;
+        }
+
+        h2 {
+            color: var(--barbie-pink); /* Un rosa fuerte para los títulos de sección */
+            border-bottom: 2px solid var(--pale-magenta-pink); /* Borde inferior más claro */
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        /* Estilos de Tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid var(--mimi-pink); /* Bordes de tabla más claros */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--pale-magenta-pink); /* Fondo de cabecera de tabla */
+            color: #333; /* Texto oscuro para contraste */
+            font-weight: bold;
+        }
+
+        /* Filas impares con color de fondo */
+        tbody tr:nth-child(odd) {
+            background-color: #fefefe; /* Casi blanco para filas impares */
+        }
+
+        /* Estilo para inputs dentro de la tabla */
+        td input[type="number"],
+        td input[type="text"] {
+            width: 90%;
+            padding: 5px;
+            border: 1px solid var(--hot-pink); /* Borde del input más visible */
+            border-radius: 4px;
+            box-sizing: border-box;
+            outline-color: var(--frostbite); /* Color del contorno al enfocar */
+        }
+
+        /* Estilo para filas de totales */
+        .total-row {
+            background-color: var(--pale-magenta-pink); /* Rosa claro para totales */
+            font-weight: bold;
+        }
+
+        .total-row strong {
+            color: var(--barbie-pink); /* Texto de totales más oscuro */
+        }
+
+        /* Estilos específicos para la fila de Total Gastos */
+        .total-gastos {
+            background-color: var(--frostbite); /* Rosa fuerte para el total de gastos */
+            color: #fff; /* Texto blanco para contraste */
+        }
+
+        /* Notas */
+        .note {
+            font-size: 0.9em;
+            color: var(--barbie-pink); /* Color de nota */
+            margin-top: 15px;
+            text-align: center;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        /* Resumen de Ahorro */
+        .resumen-section {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-basis: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .resumen-section .card {
+            background-color: var(--mimi-pink); /* Rosa muy claro para las tarjetas */
+            border: 1px solid var(--pale-magenta-pink);
+            border-radius: 8px;
+            padding: 15px;
+            flex: 1;
+            min-width: 250px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .resumen-section .card h3 {
+            margin-top: 0;
+            color: var(--barbie-pink); /* Títulos de tarjeta en rosa fuerte */
+        }
+
+        .resumen-section .card p {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--frostbite); /* Valores de ahorro en un rosa profundo */
+        }
+
+        /* Para dispositivos más pequeños */
+        @media (max-width: 768px) {
+            section {
+                flex: 1 1 100%;
+                min-width: unset;
+            }
+            .resumen-section {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>INFORMACIÓN FINANCIERA</h1>
+    </header>
+
+    <main>
+        <section class="ingresos-section">
+            <h2>Ingresos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Mensuales</th>
+                        <th>Anuales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-concept="usted">
+                        <td>Usted</td>
+                        <td><input type="number" id="ingresoUstedMensual" value="27000"></td>
+                        <td><span id="ingresoUstedAnual"></span></td>
+                    </tr>
+                    <tr data-concept="conyuge">
+                        <td>Cónyuge</td>
+                        <td><input type="number" id="ingresoConyugeMensual" value="0"></td>
+                        <td><span id="ingresoConyugeAnual"></span></td>
+                    </tr>
+                    <tr data-concept="aguinaldo">
+                        <td>Aguinaldo, Bono, Utilidades</td>
+                        <td><input type="number" id="ingresoAguinaldoMensual" value="0"></td>
+                        <td><span id="ingresoAguinaldoAnual"></span></td>
+                    </tr>
+                    <tr data-concept="pension">
+                        <td>Pensión, Rentas, Negocio, Intereses</td>
+                        <td><input type="number" id="ingresoPensionMensual" value="0"></td>
+                        <td><span id="ingresoPensionAnual"></span></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>Total Ingresos:</strong></td>
+                        <td><span id="totalIngresosMensual"></span></td>
+                        <td><span id="totalIngresosAnual"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="gastos-mensuales-section">
+            <h2>Gastos Mensuales</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Mensuales</th>
+                        <th>Anuales</th>
+                        <th>%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-concept="luzAguaGas">
+                        <td>Luz / Agua / Gas</td>
+                        <td><input type="number" id="gastoLuzMensual" value="550"></td>
+                        <td><span id="gastoLuzAnual"></span></td>
+                        <td><span id="gastoLuzPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="celularTelefono">
+                        <td>Celular y Teléfono</td>
+                        <td><input type="number" id="gastoCelularMensual" value="300"></td>
+                        <td><span id="gastoCelularAnual"></span></td>
+                        <td><span id="gastoCelularPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="tvInternet">
+                        <td>Tv de Paga / Internet</td>
+                        <td><input type="number" id="gastoTvMensual" value="400"></td>
+                        <td><span id="gastoTvAnual"></span></td>
+                        <td><span id="gastoTvPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="aseoHogarNinera">
+                        <td>Aseo del Hogar / Niñera</td>
+                        <td><input type="number" id="gastoAseoMensual" value="0"></td>
+                        <td><span id="gastoAseoAnual"></span></td>
+                        <td><span id="gastoAseoPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="tintoreriaLavanderia">
+                        <td>Tintoreria / Lavanderia</td>
+                        <td><input type="number" id="gastoTintoreriaMensual" value="700"></td>
+                        <td><span id="gastoTintoreriaAnual"></span></td>
+                        <td><span id="gastoTintoreriaPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="despensaMercado">
+                        <td>Despensa, Mercado - "Tiendita"</td>
+                        <td><input type="number" id="gastoDespensaMensual" value="400"></td>
+                        <td><span id="gastoDespensaAnual"></span></td>
+                        <td><span id="gastoDespensaPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="comidaFueraCasa">
+                        <td>Comidas fuera de casa (L-V)</td>
+                        <td><input type="number" id="gastoComidaMensual" value="12000"></td>
+                        <td><span id="gastoComidaAnual"></span></td>
+                        <td><span id="gastoComidaPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="diversion">
+                        <td>Diversión (Cine, Restaurante, Parque)</td>
+                        <td><input type="number" id="gastoDiversionMensual" value="2000"></td>
+                        <td><span id="gastoDiversionAnual"></span></td>
+                        <td><span id="gastoDiversionPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="transporteGasolina">
+                        <td>Transportación / Gasolina</td>
+                        <td><input type="number" id="gastoTransporteMensual" value="3900"></td>
+                        <td><span id="gastoTransporteAnual"></span></td>
+                        <td><span id="gastoTransportePorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="rentaHipoteca">
+                        <td>Renta / Hipoteca</td>
+                        <td><input type="number" id="gastoRentaMensual" value="5300"></td>
+                        <td><span id="gastoRentaAnual"></span></td>
+                        <td><span id="gastoRentaPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="escuelaColegiatura">
+                        <td>Escuela / Colegiatura, GMM</td>
+                        <td><input type="number" id="gastoEscuelaMensual" value="0"></td>
+                        <td><span id="gastoEscuelaAnual"></span></td>
+                        <td><span id="gastoEscuelaPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="segurosAutoVida">
+                        <td>Seguros (Auto, Vida, GMM)</td>
+                        <td><input type="number" id="gastoSegurosAutoVidaMensual" value="0"></td>
+                        <td><span id="gastoSegurosAutoVidaAnual"></span></td>
+                        <td><span id="gastoSegurosAutoVidaPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="tarjetasCredito">
+                        <td>Tarjetas de Crédito</td>
+                        <td><input type="number" id="gastoTarjetasCreditoMensual" value="0"></td>
+                        <td><span id="gastoTarjetasCreditoAnual"></span></td>
+                        <td><span id="gastoTarjetasCreditoPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="deudasCreditosPersonales">
+                        <td>Deudas / Créditos Personales</td>
+                        <td><input type="number" id="gastoDeudasPersonalesMensual" value="0"></td>
+                        <td><span id="gastoDeudasPersonalesAnual"></span></td>
+                        <td><span id="gastoDeudasPersonalesPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="pagoVehiculos">
+                        <td>Pago de Vehículos</td>
+                        <td><input type="number" id="gastoPagoVehiculosMensual" value="0"></td>
+                        <td><span id="gastoPagoVehiculosAnual"></span></td>
+                        <td><span id="gastoPagoVehiculosPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="tiendasDepartamentales">
+                        <td>Tiendas Departamentales</td>
+                        <td><input type="number" id="gastoTiendasDepartamentalesMensual" value="800"></td>
+                        <td><span id="gastoTiendasDepartamentalesAnual"></span></td>
+                        <td><span id="gastoTiendasDepartamentalesPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="mascotas">
+                        <td>Mascotas</td>
+                        <td><input type="number" id="gastoMascotasMensual" value="0"></td>
+                        <td><span id="gastoMascotasAnual"></span></td>
+                        <td><span id="gastoMascotasPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="saludPediatra">
+                        <td>Salud (Pediatra, Medicamentos Recu)</td>
+                        <td><input type="number" id="gastoSaludMensual" value="1000"></td>
+                        <td><span id="gastoSaludAnual"></span></td>
+                        <td><span id="gastoSaludPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="otrosGastosMensuales">
+                        <td>Otros</td>
+                        <td><input type="number" id="gastoOtrosMensual" value="0"></td>
+                        <td><span id="gastoOtrosAnual"></span></td>
+                        <td><span id="gastoOtrosPorcentaje"></span></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>Sub Total Gastos Mensuales</strong></td>
+                        <td><span id="subTotalGastosMensual"></span></td>
+                        <td><span id="subTotalGastosAnual"></span></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="gastos-anuales-section">
+            <h2>Gastos Anuales</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Mensuales</th>
+                        <th>Anuales</th>
+                        <th>%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-concept="predial">
+                        <td>Predial</td>
+                        <td><input type="number" id="gastoPredialMensual" value="0"></td>
+                        <td><span id="gastoPredialAnual"></span></td>
+                        <td><span id="gastoPredialPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="tenenciaAuto">
+                        <td>Tenencia Auto</td>
+                        <td><input type="number" id="gastoTenenciaAutoMensual" value="0"></td>
+                        <td><span id="gastoTenenciaAutoAnual"></span></td>
+                        <td><span id="gastoTenenciaAutoPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="segurosAutoCasa">
+                        <td>Seguros (Auto, Casa, GMM)</td>
+                        <td><input type="number" id="gastoSegurosAutoCasaMensual" value="0"></td>
+                        <td><span id="gastoSegurosAutoCasaAnual"></span></td>
+                        <td><span id="gastoSegurosAutoCasaPorcentaje"></span></td>
+                    </tr>
+                    <tr data-concept="inscripciones">
+                        <td>Inscripciones</td>
+                        <td><input type="number" id="gastoInscripcionesMensual" value="0"></td>
+                        <td><span id="gastoInscripcionesAnual"></span></td>
+                        <td><span id="gastoInscripcionesPorcentaje"></span></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>Subtotal Gastos Anuales</strong></td>
+                        <td><span id="subTotalGastosAnualesMensual"></span></td>
+                        <td><span id="subTotalGastosAnualesAnual"></span></td>
+                        <td></td>
+                    </tr>
+                    <tr class="total-row total-gastos">
+                        <td><strong>Total Gastos</strong></td>
+                        <td><span id="totalGastosMensual"></span></td>
+                        <td><span id="totalGastosAnual"></span></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="otros-gastos-section">
+            <h2>Otros Gastos (NP)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>NP</th>
+                        <th>Concepto</th>
+                        <th>Gasto por Mes</th>
+                        <th>Gasto Anual</th>
+                    </tr>
+                </thead>
+                <tbody id="otrosGastosBody">
+                    <tr data-np="1">
+                        <td>1</td>
+                        <td><input type="text" value="skincare"></td>
+                        <td><input type="number" value="200"></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="2">
+                        <td>2</td>
+                        <td><input type="text" value="Ropa"></td>
+                        <td><input type="number" value="222"></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="3">
+                        <td>3</td>
+                        <td><input type="text" value="Zapatos"></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="4">
+                        <td>4</td>
+                        <td><input type="text" value="Spa"></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="5">
+                        <td>5</td>
+                        <td><input type="text" value="Terapia"></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="6">
+                        <td>6</td>
+                        <td><input type="text" value="Uñas"></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="7">
+                        <td>7</td>
+                        <td><input type="text" value="Pestañas"></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="8">
+                        <td>8</td>
+                        <td><input type="text" value="Cabello"></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="9">
+                        <td>9</td>
+                        <td><input type="text" value="Nutriólogo"></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="10">
+                        <td>10</td>
+                        <td><input type="text" value="Cafesitos"></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="11">
+                        <td>11</td>
+                        <td><input type="text" value="Regalos"></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="12">
+                        <td>12</td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="13">
+                        <td>13</td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="14">
+                        <td>14</td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr data-np="15">
+                        <td>15</td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value=""></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td></td>
+                        <td><strong>Total</strong></td>
+                        <td><span id="totalOtrosGastosMensual"></span></td>
+                        <td><span id="totalOtrosGastosAnual"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="note">! NO FINJAS ! ANOTA TODOS TUS GASTOS</p>
+        </section>
+
+        <section class="resumen-section">
+            <div class="card">
+                <h3>Capacidad de ahorro mensual</h3>
+                <p><span id="capacidadAhorroMensual"></span></p>
+            </div>
+            <div class="card">
+                <h3>Capacidad de ahorro anual</h3>
+                <p><span id="capacidadAhorroAnual"></span></p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const inputs = document.querySelectorAll('input[type="number"]');
+            const textInputs = document.querySelectorAll('input[type="text"]');
+
+            // Función para formatear números a moneda (MXN)
+            const formatCurrency = (value) => {
+                return new Intl.NumberFormat('es-MX', {
+                    style: 'currency',
+                    currency: 'MXN',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }).format(value);
+            };
+
+            // Función para formatear porcentajes
+            const formatPercentage = (value) => {
+                return (value * 100).toFixed(0) + '%';
+            };
+
+            // Función principal para calcular todos los valores
+            const calculateAll = () => {
+                let totalIngresosMensual = 0;
+                let totalIngresosAnual = 0;
+
+                // --- CALCULO DE INGRESOS ---
+                const ingresoUstedMensual = parseFloat(document.getElementById('ingresoUstedMensual').value) || 0;
+                document.getElementById('ingresoUstedAnual').textContent = formatCurrency(ingresoUstedMensual * 12);
+                totalIngresosMensual += ingresoUstedMensual;
+
+                const ingresoConyugeMensual = parseFloat(document.getElementById('ingresoConyugeMensual').value) || 0;
+                document.getElementById('ingresoConyugeAnual').textContent = formatCurrency(ingresoConyugeMensual * 12);
+                totalIngresosMensual += ingresoConyugeMensual;
+
+                const ingresoAguinaldoMensual = parseFloat(document.getElementById('ingresoAguinaldoMensual').value) || 0;
+                document.getElementById('ingresoAguinaldoAnual').textContent = formatCurrency(ingresoAguinaldoMensual * 12);
+                totalIngresosMensual += ingresoAguinaldoMensual;
+
+                const ingresoPensionMensual = parseFloat(document.getElementById('ingresoPensionMensual').value) || 0;
+                document.getElementById('ingresoPensionAnual').textContent = formatCurrency(ingresoPensionMensual * 12);
+                totalIngresosMensual += ingresoPensionMensual;
+
+                totalIngresosAnual = totalIngresosMensual * 12;
+                document.getElementById('totalIngresosMensual').textContent = formatCurrency(totalIngresosMensual);
+                document.getElementById('totalIngresosAnual').textContent = formatCurrency(totalIngresosAnual);
+
+                // --- CALCULO DE GASTOS MENSUALES ---
+                let subTotalGastosMensual = 0;
+                const gastosMensuales = [
+                    { id: 'gastoLuz', value: parseFloat(document.getElementById('gastoLuzMensual').value) || 0 },
+                    { id: 'gastoCelular', value: parseFloat(document.getElementById('gastoCelularMensual').value) || 0 },
+                    { id: 'gastoTv', value: parseFloat(document.getElementById('gastoTvMensual').value) || 0 },
+                    { id: 'gastoAseo', value: parseFloat(document.getElementById('gastoAseoMensual').value) || 0 },
+                    { id: 'gastoTintoreria', value: parseFloat(document.getElementById('gastoTintoreriaMensual').value) || 0 },
+                    { id: 'gastoDespensa', value: parseFloat(document.getElementById('gastoDespensaMensual').value) || 0 },
+                    { id: 'gastoComida', value: parseFloat(document.getElementById('gastoComidaMensual').value) || 0 },
+                    { id: 'gastoDiversion', value: parseFloat(document.getElementById('gastoDiversionMensual').value) || 0 },
+                    { id: 'gastoTransporte', value: parseFloat(document.getElementById('gastoTransporteMensual').value) || 0 },
+                    { id: 'gastoRenta', value: parseFloat(document.getElementById('gastoRentaMensual').value) || 0 },
+                    { id: 'gastoEscuela', value: parseFloat(document.getElementById('gastoEscuelaMensual').value) || 0 },
+                    { id: 'gastoSegurosAutoVida', value: parseFloat(document.getElementById('gastoSegurosAutoVidaMensual').value) || 0 },
+                    { id: 'gastoTarjetasCredito', value: parseFloat(document.getElementById('gastoTarjetasCreditoMensual').value) || 0 },
+                    { id: 'gastoDeudasPersonales', value: parseFloat(document.getElementById('gastoDeudasPersonalesMensual').value) || 0 },
+                    { id: 'gastoPagoVehiculos', value: parseFloat(document.getElementById('gastoPagoVehiculosMensual').value) || 0 },
+                    { id: 'gastoTiendasDepartamentales', value: parseFloat(document.getElementById('gastoTiendasDepartamentalesMensual').value) || 0 },
+                    { id: 'gastoMascotas', value: parseFloat(document.getElementById('gastoMascotasMensual').value) || 0 },
+                    { id: 'gastoSalud', value: parseFloat(document.getElementById('gastoSaludMensual').value) || 0 },
+                    { id: 'gastoOtros', value: parseFloat(document.getElementById('gastoOtrosMensual').value) || 0 },
+                ];
+
+                gastosMensuales.forEach(gasto => {
+                    const anual = gasto.value * 12;
+                    document.getElementById(`${gasto.id}Anual`).textContent = formatCurrency(anual);
+                    subTotalGastosMensual += gasto.value;
+                });
+
+                const subTotalGastosAnual = subTotalGastosMensual * 12;
+                document.getElementById('subTotalGastosMensual').textContent = formatCurrency(subTotalGastosMensual);
+                document.getElementById('subTotalGastosAnual').textContent = formatCurrency(subTotalGastosAnual);
+
+                // Calcular porcentajes de gastos mensuales
+                if (subTotalGastosMensual > 0) {
+                    gastosMensuales.forEach(gasto => {
+                        const porcentaje = gasto.value / subTotalGastosMensual;
+                        document.getElementById(`${gasto.id}Porcentaje`).textContent = formatPercentage(porcentaje);
+                    });
+                } else {
+                    gastosMensuales.forEach(gasto => {
+                        document.getElementById(`${gasto.id}Porcentaje`).textContent = '0%';
+                    });
+                }
+
+
+                // --- CALCULO DE GASTOS ANUALES ---
+                let subTotalGastosAnualesMensual = 0;
+                const gastosAnuales = [
+                    { id: 'gastoPredial', value: parseFloat(document.getElementById('gastoPredialMensual').value) || 0 },
+                    { id: 'gastoTenenciaAuto', value: parseFloat(document.getElementById('gastoTenenciaAutoMensual').value) || 0 },
+                    { id: 'gastoSegurosAutoCasa', value: parseFloat(document.getElementById('gastoSegurosAutoCasaMensual').value) || 0 },
+                    { id: 'gastoInscripciones', value: parseFloat(document.getElementById('gastoInscripcionesMensual').value) || 0 },
+                ];
+
+                gastosAnuales.forEach(gasto => {
+                    const anual = gasto.value * 12;
+                    document.getElementById(`${gasto.id}Anual`).textContent = formatCurrency(anual);
+                    subTotalGastosAnualesMensual += gasto.value;
+                });
+
+                const subTotalGastosAnualesAnual = subTotalGastosAnualesMensual * 12;
+                document.getElementById('subTotalGastosAnualesMensual').textContent = formatCurrency(subTotalGastosAnualesMensual);
+                document.getElementById('subTotalGastosAnualesAnual').textContent = formatCurrency(subTotalGastosAnualesAnual);
+
+                // Calcular porcentajes de gastos anuales (si aplica)
+                if (subTotalGastosAnualesMensual > 0) {
+                    gastosAnuales.forEach(gasto => {
+                        const porcentaje = gasto.value / subTotalGastosAnualesMensual;
+                        document.getElementById(`${gasto.id}Porcentaje`).textContent = formatPercentage(porcentaje);
+                    });
+                } else {
+                    gastosAnuales.forEach(gasto => {
+                        document.getElementById(`${gasto.id}Porcentaje`).textContent = '0%';
+                    });
+                }
+
+
+                // --- CALCULO DE OTROS GASTOS (NP) ---
+                let totalOtrosGastosMensual = 0;
+                document.querySelectorAll('#otrosGastosBody tr').forEach(row => {
+                    const monthlyInput = row.querySelector('input[type="number"]');
+                    const annualSpan = row.querySelector('span');
+
+                    if (monthlyInput && annualSpan) {
+                        const monthlyValue = parseFloat(monthlyInput.value) || 0;
+                        const annualValue = monthlyValue * 12;
+                        annualSpan.textContent = formatCurrency(annualValue);
+                        totalOtrosGastosMensual += monthlyValue;
+                    }
+                });
+                const totalOtrosGastosAnual = totalOtrosGastosMensual * 12;
+                document.getElementById('totalOtrosGastosMensual').textContent = formatCurrency(totalOtrosGastosMensual);
+                document.getElementById('totalOtrosGastosAnual').textContent = formatCurrency(totalOtrosGastosAnual);
+
+
+                // --- CALCULO TOTAL DE GASTOS ---
+                const totalGastosMensual = subTotalGastosMensual + subTotalGastosAnualesMensual + totalOtrosGastosMensual;
+                const totalGastosAnual = totalGastosMensual * 12;
+                document.getElementById('totalGastosMensual').textContent = formatCurrency(totalGastosMensual);
+                document.getElementById('totalGastosAnual').textContent = formatCurrency(totalGastosAnual);
+
+                // --- CALCULO DE CAPACIDAD DE AHORRO ---
+                const capacidadAhorroMensual = totalIngresosMensual - totalGastosMensual;
+                const capacidadAhorroAnual = capacidadAhorroMensual * 12;
+                document.getElementById('capacidadAhorroMensual').textContent = formatCurrency(capacidadAhorroMensual);
+                document.getElementById('capacidadAhorroAnual').textContent = formatCurrency(capacidadAhorroAnual);
+            };
+
+            // Inicializar cálculos al cargar la página
+            calculateAll();
+
+            // Añadir event listeners a todos los inputs numéricos para recalcular al cambiar
+            inputs.forEach(input => {
+                input.addEventListener('input', calculateAll);
+            });
+
+            // Añadir event listeners a los inputs de texto en "Otros Gastos" para que también actualicen (aunque no afecten cálculos)
+            textInputs.forEach(input => {
+                input.addEventListener('input', calculateAll); // Llama a calculateAll para que se actualicen las celdas de gasto anual.
+            });
+        });
+    </script>
+</body>
+</html>
