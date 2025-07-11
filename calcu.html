@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información Financiera Personal</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS9MdkkKSkPNVfT8ebIDoNGEyCfK5VpFDInNGQmABJ6LFAy4hVKy3gWFbdrTIyJobFxrfGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <style>
         /* Variables CSS para la paleta de colores */
         :root {
@@ -159,6 +162,47 @@
             color: var(--frostbite); /* Valores de ahorro en un rosa profundo */
         }
 
+        /* Estilos para el botón de PDF */
+        #generatePdfBtn {
+            display: block; /* Para que ocupe su propia línea */
+            margin: 30px auto; /* Centrar el botón y darle espacio */
+            padding: 12px 25px;
+            font-size: 1.1em;
+            background-color: var(--barbie-pink); /* Un rosa fuerte para el botón */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        #generatePdfBtn:hover {
+            background-color: var(--frostbite); /* Oscurecer al pasar el ratón */
+        }
+
+        /* Estilos para el Footer */
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            background-color: var(--hot-pink);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+
         /* Para dispositivos más pequeños */
         @media (max-width: 768px) {
             section {
@@ -176,8 +220,7 @@
         <h1>INFORMACIÓN FINANCIERA</h1>
     </header>
 
-    <main>
-        <section class="ingresos-section">
+    <main id="contentToPdf"> <section class="ingresos-section">
             <h2>Ingresos</h2>
             <table>
                 <thead>
@@ -190,7 +233,7 @@
                 <tbody>
                     <tr data-concept="usted">
                         <td>Usted</td>
-                        <td><input type="number" id="ingresoUstedMensual" value="27000"></td>
+                        <td><input type="number" id="ingresoUstedMensual" value="0"></td>
                         <td><span id="ingresoUstedAnual"></span></td>
                     </tr>
                     <tr data-concept="conyuge">
@@ -231,19 +274,19 @@
                 <tbody>
                     <tr data-concept="luzAguaGas">
                         <td>Luz / Agua / Gas</td>
-                        <td><input type="number" id="gastoLuzMensual" value="550"></td>
+                        <td><input type="number" id="gastoLuzMensual" value="0"></td>
                         <td><span id="gastoLuzAnual"></span></td>
                         <td><span id="gastoLuzPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="celularTelefono">
                         <td>Celular y Teléfono</td>
-                        <td><input type="number" id="gastoCelularMensual" value="300"></td>
+                        <td><input type="number" id="gastoCelularMensual" value="0"></td>
                         <td><span id="gastoCelularAnual"></span></td>
                         <td><span id="gastoCelularPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="tvInternet">
                         <td>Tv de Paga / Internet</td>
-                        <td><input type="number" id="gastoTvMensual" value="400"></td>
+                        <td><input type="number" id="gastoTvMensual" value="0"></td>
                         <td><span id="gastoTvAnual"></span></td>
                         <td><span id="gastoTvPorcentaje"></span></td>
                     </tr>
@@ -255,37 +298,37 @@
                     </tr>
                     <tr data-concept="tintoreriaLavanderia">
                         <td>Tintoreria / Lavanderia</td>
-                        <td><input type="number" id="gastoTintoreriaMensual" value="700"></td>
+                        <td><input type="number" id="gastoTintoreriaMensual" value="0"></td>
                         <td><span id="gastoTintoreriaAnual"></span></td>
                         <td><span id="gastoTintoreriaPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="despensaMercado">
                         <td>Despensa, Mercado - "Tiendita"</td>
-                        <td><input type="number" id="gastoDespensaMensual" value="400"></td>
+                        <td><input type="number" id="gastoDespensaMensual" value="0"></td>
                         <td><span id="gastoDespensaAnual"></span></td>
                         <td><span id="gastoDespensaPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="comidaFueraCasa">
                         <td>Comidas fuera de casa (L-V)</td>
-                        <td><input type="number" id="gastoComidaMensual" value="12000"></td>
+                        <td><input type="number" id="gastoComidaMensual" value="0"></td>
                         <td><span id="gastoComidaAnual"></span></td>
                         <td><span id="gastoComidaPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="diversion">
                         <td>Diversión (Cine, Restaurante, Parque)</td>
-                        <td><input type="number" id="gastoDiversionMensual" value="2000"></td>
+                        <td><input type="number" id="gastoDiversionMensual" value="0"></td>
                         <td><span id="gastoDiversionAnual"></span></td>
                         <td><span id="gastoDiversionPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="transporteGasolina">
                         <td>Transportación / Gasolina</td>
-                        <td><input type="number" id="gastoTransporteMensual" value="3900"></td>
+                        <td><input type="number" id="gastoTransporteMensual" value="0"></td>
                         <td><span id="gastoTransporteAnual"></span></td>
                         <td><span id="gastoTransportePorcentaje"></span></td>
                     </tr>
                     <tr data-concept="rentaHipoteca">
                         <td>Renta / Hipoteca</td>
-                        <td><input type="number" id="gastoRentaMensual" value="5300"></td>
+                        <td><input type="number" id="gastoRentaMensual" value="0"></td>
                         <td><span id="gastoRentaAnual"></span></td>
                         <td><span id="gastoRentaPorcentaje"></span></td>
                     </tr>
@@ -321,7 +364,7 @@
                     </tr>
                     <tr data-concept="tiendasDepartamentales">
                         <td>Tiendas Departamentales</td>
-                        <td><input type="number" id="gastoTiendasDepartamentalesMensual" value="800"></td>
+                        <td><input type="number" id="gastoTiendasDepartamentalesMensual" value="0"></td>
                         <td><span id="gastoTiendasDepartamentalesAnual"></span></td>
                         <td><span id="gastoTiendasDepartamentalesPorcentaje"></span></td>
                     </tr>
@@ -333,7 +376,7 @@
                     </tr>
                     <tr data-concept="saludPediatra">
                         <td>Salud (Pediatra, Medicamentos Recu)</td>
-                        <td><input type="number" id="gastoSaludMensual" value="1000"></td>
+                        <td><input type="number" id="gastoSaludMensual" value="0"></td>
                         <td><span id="gastoSaludAnual"></span></td>
                         <td><span id="gastoSaludPorcentaje"></span></td>
                     </tr>
@@ -419,92 +462,92 @@
                 <tbody id="otrosGastosBody">
                     <tr data-np="1">
                         <td>1</td>
-                        <td><input type="text" value="skincare"></td>
-                        <td><input type="number" value="200"></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="2">
                         <td>2</td>
-                        <td><input type="text" value="Ropa"></td>
-                        <td><input type="number" value="222"></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="3">
                         <td>3</td>
-                        <td><input type="text" value="Zapatos"></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="4">
                         <td>4</td>
-                        <td><input type="text" value="Spa"></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="5">
                         <td>5</td>
-                        <td><input type="text" value="Terapia"></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="6">
                         <td>6</td>
-                        <td><input type="text" value="Uñas"></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="7">
                         <td>7</td>
-                        <td><input type="text" value="Pestañas"></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="8">
                         <td>8</td>
-                        <td><input type="text" value="Cabello"></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="9">
                         <td>9</td>
-                        <td><input type="text" value="Nutriólogo"></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="10">
                         <td>10</td>
-                        <td><input type="text" value="Cafesitos"></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="11">
                         <td>11</td>
-                        <td><input type="text" value="Regalos"></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="text" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="12">
                         <td>12</td>
                         <td><input type="text" value=""></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="13">
                         <td>13</td>
                         <td><input type="text" value=""></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="14">
                         <td>14</td>
                         <td><input type="text" value=""></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr data-np="15">
                         <td>15</td>
                         <td><input type="text" value=""></td>
-                        <td><input type="number" value=""></td>
+                        <td><input type="number" value="0"></td>
                         <td><span></span></td>
                     </tr>
                     <tr class="total-row">
@@ -528,14 +571,22 @@
                 <p><span id="capacidadAhorroAnual"></span></p>
             </div>
         </section>
-
     </main>
+
+    <button id="generatePdfBtn">Generar PDF de Resumen</button>
+
+    <footer>
+        <p>&copy; 2025 Información Financiera Personal. Desarrollado con 💖 para ti.</p>
+        <p>Visita <a href="https://www.schemecolor.com/girly-pinks-color-scheme.php" target="_blank">Girly Pinks Color Scheme</a></p>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
             const inputs = document.querySelectorAll('input[type="number"]');
             const textInputs = document.querySelectorAll('input[type="text"]');
+            const generatePdfBtn = document.getElementById('generatePdfBtn');
+            const contentToPdf = document.getElementById('contentToPdf'); // El main que contendrá el PDF
 
             // Función para formatear números a moneda (MXN)
             const formatCurrency = (value) => {
@@ -687,6 +738,41 @@
                 document.getElementById('capacidadAhorroMensual').textContent = formatCurrency(capacidadAhorroMensual);
                 document.getElementById('capacidadAhorroAnual').textContent = formatCurrency(capacidadAhorroAnual);
             };
+
+            // Event Listener para el botón de generar PDF
+            generatePdfBtn.addEventListener('click', () => {
+                // Opciones para html2pdf
+                const options = {
+                    margin: 10,
+                    filename: 'Reporte_Financiero_Personal.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                // Clonar el contenido para evitar afectar la página visible
+                // y eliminar inputs para que no aparezcan en el PDF
+                const contentClone = contentToPdf.cloneNode(true);
+                contentClone.querySelectorAll('input').forEach(input => {
+                    const span = document.createElement('span');
+                    // Para inputs tipo number, mostrar el valor formateado como moneda
+                    if (input.type === 'number') {
+                        span.textContent = formatCurrency(parseFloat(input.value) || 0);
+                    } else { // Para inputs tipo text, solo mostrar el texto
+                        span.textContent = input.value;
+                    }
+                    input.parentNode.replaceChild(span, input);
+                });
+                
+                // Asegurarse de que los valores calculados estén actualizados antes de generar el PDF
+                // Esto es crucial porque los spans se actualizan en calculateAll().
+                // Para simplificar, forzamos una actualización final.
+                // Sin embargo, html2pdf.js renderiza el DOM actual, así que los spans ya deberían estar correctos.
+                // Si aún se ven inputs en el PDF, podrías necesitar una estrategia más sofisticada
+                // para reemplazar los inputs por sus valores ANTES de que html2pdf los procese.
+
+                html2pdf().from(contentClone).set(options).save();
+            });
 
             // Inicializar cálculos al cargar la página
             calculateAll();
