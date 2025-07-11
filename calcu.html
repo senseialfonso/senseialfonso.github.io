@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información Financiera Personal</title>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS9MdkkKSkPNVfT8ebIDoNGEyCfK5VpFDInNGQmABJ6LFAy4hVKy3gWFbdrTIyJobFxrfGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦄</text></svg>">
 
     <style>
         /* Variables CSS para la paleta de colores */
@@ -168,25 +168,6 @@
             font-size: 1.5em;
             font-weight: bold;
             color: var(--frostbite); /* Valores de ahorro en un rosa profundo */
-        }
-
-        /* Estilos para el botón de PDF */
-        #generatePdfBtn {
-            display: block; /* Para que ocupe su propia línea */
-            margin: 30px auto; /* Centrar el botón y darle espacio */
-            padding: 12px 25px;
-            font-size: 1.1em;
-            background-color: var(--barbie-pink); /* Un rosa fuerte para el botón */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        #generatePdfBtn:hover {
-            background-color: var(--frostbite); /* Oscurecer al pasar el ratón */
         }
 
         /* Estilos para el Footer */
@@ -592,8 +573,6 @@
         </section>
     </main>
 
-    <button id="generatePdfBtn">Generar PDF de Resumen</button>
-
     <footer>
         <p>&copy; 2025 Información Financiera Personal. Desarrollado con 💖 para ti.</p>
         <div class="social-icons">
@@ -607,6 +586,7 @@
                 <span role="img" aria-label="Instagram">📸</span> Instagram Kary La de los Seguros
             </a>
         </div>
+        <p>Paleta de colores: <a href="https://www.schemecolor.com/girly-pinks-color-scheme.php" target="_blank">Girly Pinks Color Scheme</a></p>
     </footer>
 
     <script>
@@ -614,8 +594,8 @@
 
             const inputs = document.querySelectorAll('input[type="number"]');
             const textInputs = document.querySelectorAll('input[type="text"]');
-            const generatePdfBtn = document.getElementById('generatePdfBtn');
-            const contentToPdf = document.getElementById('contentToPdf'); // El main que contendrá el PDF
+            
+            // La variable 'contentToPdf' ya no se usa para generar PDF, pero se mantiene su ID en el HTML.
 
             // Función para formatear números a moneda (MXN)
             const formatCurrency = (value) => {
@@ -767,51 +747,6 @@
                 document.getElementById('capacidadAhorroMensual').textContent = formatCurrency(capacidadAhorroMensual);
                 document.getElementById('capacidadAhorroAnual').textContent = formatCurrency(capacidadAhorroAnual);
             };
-
-            // Event Listener para el botón de generar PDF
-            generatePdfBtn.addEventListener('click', () => {
-                // Ocultar el botón de PDF temporalmente para que no aparezca en el PDF
-                generatePdfBtn.style.display = 'none';
-
-                // Clonar el contenido para evitar afectar la página visible
-                const contentClone = contentToPdf.cloneNode(true);
-                
-                // Reemplazar inputs con spans en el clon para el PDF
-                contentClone.querySelectorAll('input').forEach(input => {
-                    const span = document.createElement('span');
-                    if (input.type === 'number') {
-                        span.textContent = formatCurrency(parseFloat(input.value) || 0);
-                    } else { // Para inputs tipo text
-                        span.textContent = input.value;
-                    }
-                    // Copiar estilos básicos para que el span se parezca al input en el PDF
-                    span.style.padding = input.style.padding;
-                    span.style.border = input.style.border;
-                    span.style.borderRadius = input.style.borderRadius;
-                    span.style.boxSizing = input.style.boxSizing;
-                    span.style.width = input.style.width;
-
-                    // Si el padre del input es un <td>, asegúrate de que el span lo reemplace correctamente
-                    if (input.parentNode) {
-                        input.parentNode.replaceChild(span, input);
-                    }
-                });
-
-                // Opciones para html2pdf
-                const options = {
-                    margin: 10,
-                    filename: 'Reporte_Financiero_Personal.pdf',
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
-
-                // Generar y guardar el PDF
-                html2pdf().from(contentClone).set(options).save().then(() => {
-                    // Volver a mostrar el botón de PDF después de la generación
-                    generatePdfBtn.style.display = 'block';
-                });
-            });
 
             // Inicializar cálculos al cargar la página
             calculateAll();
