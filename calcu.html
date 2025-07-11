@@ -38,6 +38,14 @@
         h1 {
             color: #fff; /* Título principal en blanco */
             margin: 0;
+            display: flex; /* Usar flexbox para centrar el emoji */
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 .emoji {
+            margin-left: 10px; /* Espacio entre el texto y el emoji */
+            font-size: 1.2em; /* Tamaño del emoji */
         }
 
         main {
@@ -196,12 +204,23 @@
             color: #fff;
             text-decoration: none;
             font-weight: bold;
+            margin: 0 8px; /* Espacio entre enlaces */
+            display: inline-block; /* Asegurar que los márgenes funcionen */
         }
 
         footer a:hover {
             text-decoration: underline;
         }
 
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons span {
+            margin-right: 5px; /* Espacio entre el icono y el texto del enlace */
+            font-size: 1.2em; /* Tamaño del emoji de icono */
+            vertical-align: middle; /* Alineación vertical */
+        }
 
         /* Para dispositivos más pequeños */
         @media (max-width: 768px) {
@@ -217,7 +236,7 @@
 </head>
 <body>
     <header>
-        <h1>INFORMACIÓN FINANCIERA</h1>
+        <h1>INFORMACIÓN FINANCIERA <span class="emoji">🦄</span></h1>
     </header>
 
     <main id="contentToPdf"> <section class="ingresos-section">
@@ -577,7 +596,18 @@
 
     <footer>
         <p>&copy; 2025 Información Financiera Personal. Desarrollado con 💖 para ti.</p>
-        <p>Visita <a href="https://www.schemecolor.com/girly-pinks-color-scheme.php" target="_blank">Girly Pinks Color Scheme</a></p>
+        <div class="social-icons">
+            <a href="https://www.tiktok.com/@lugares.con.cuii" target="_blank">
+                <span role="img" aria-label="TikTok">🎵</span> TikTok Lugares.con.cuii
+            </a>
+            <a href="https://www.tiktok.com/@karycuii" target="_blank">
+                <span role="img" aria-label="TikTok">🎵</span> TikTok KaryCuii
+            </a>
+            <a href="https://www.instagram.com/kary_la_de_los_seguros" target="_blank">
+                <span role="img" aria-label="Instagram">📸</span> Instagram Kary La de los Seguros
+            </a>
+        </div>
+        <p>Paleta de colores: <a href="https://www.schemecolor.com/girly-pinks-color-scheme.php" target="_blank">Girly Pinks Color Scheme</a></p>
     </footer>
 
     <script>
@@ -741,6 +771,33 @@
 
             // Event Listener para el botón de generar PDF
             generatePdfBtn.addEventListener('click', () => {
+                // Ocultar el botón de PDF temporalmente para que no aparezca en el PDF
+                generatePdfBtn.style.display = 'none';
+
+                // Clonar el contenido para evitar afectar la página visible
+                const contentClone = contentToPdf.cloneNode(true);
+                
+                // Reemplazar inputs con spans en el clon para el PDF
+                contentClone.querySelectorAll('input').forEach(input => {
+                    const span = document.createElement('span');
+                    if (input.type === 'number') {
+                        span.textContent = formatCurrency(parseFloat(input.value) || 0);
+                    } else { // Para inputs tipo text
+                        span.textContent = input.value;
+                    }
+                    // Copiar estilos básicos para que el span se parezca al input en el PDF
+                    span.style.padding = input.style.padding;
+                    span.style.border = input.style.border;
+                    span.style.borderRadius = input.style.borderRadius;
+                    span.style.boxSizing = input.style.boxSizing;
+                    span.style.width = input.style.width;
+
+                    // Si el padre del input es un <td>, asegúrate de que el span lo reemplace correctamente
+                    if (input.parentNode) {
+                        input.parentNode.replaceChild(span, input);
+                    }
+                });
+
                 // Opciones para html2pdf
                 const options = {
                     margin: 10,
@@ -750,28 +807,11 @@
                     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                // Clonar el contenido para evitar afectar la página visible
-                // y eliminar inputs para que no aparezcan en el PDF
-                const contentClone = contentToPdf.cloneNode(true);
-                contentClone.querySelectorAll('input').forEach(input => {
-                    const span = document.createElement('span');
-                    // Para inputs tipo number, mostrar el valor formateado como moneda
-                    if (input.type === 'number') {
-                        span.textContent = formatCurrency(parseFloat(input.value) || 0);
-                    } else { // Para inputs tipo text, solo mostrar el texto
-                        span.textContent = input.value;
-                    }
-                    input.parentNode.replaceChild(span, input);
+                // Generar y guardar el PDF
+                html2pdf().from(contentClone).set(options).save().then(() => {
+                    // Volver a mostrar el botón de PDF después de la generación
+                    generatePdfBtn.style.display = 'block';
                 });
-                
-                // Asegurarse de que los valores calculados estén actualizados antes de generar el PDF
-                // Esto es crucial porque los spans se actualizan en calculateAll().
-                // Para simplificar, forzamos una actualización final.
-                // Sin embargo, html2pdf.js renderiza el DOM actual, así que los spans ya deberían estar correctos.
-                // Si aún se ven inputs en el PDF, podrías necesitar una estrategia más sofisticada
-                // para reemplazar los inputs por sus valores ANTES de que html2pdf los procese.
-
-                html2pdf().from(contentClone).set(options).save();
             });
 
             // Inicializar cálculos al cargar la página
