@@ -17,17 +17,9 @@
             --barbie-pink: #E11B8D;
         }
 
-        /* Declaración de la fuente personalizada */
-        @font-face {
-            font-family: 'Girly'; /* Nombre que usarás para referirte a la fuente */
-            src: url('Girly.otf') format('opentype'); /* ¡Ruta modificada! Apunta directamente al archivo en la raíz */
-            font-weight: normal;
-            font-style: normal;
-        }
-
         /* Estilos Generales */
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif; /* Fuente original */
             margin: 20px;
             background-color: var(--mimi-pink); /* Fondo suave */
             color: #333; /* Texto oscuro para legibilidad */
@@ -49,13 +41,6 @@
             display: flex; /* Usar flexbox para centrar el emoji */
             align-items: center;
             justify-content: center;
-        }
-
-        /* Estilo para la parte del encabezado con la fuente personalizada */
-        h1 .custom-font-heading {
-            font-family: 'Girly', cursive; /* Aplica la fuente 'Girly', con 'cursive' como fallback */
-            font-size: 1.2em; /* Ajusta el tamaño si es necesario, ya que las fuentes personalizadas pueden variar */
-            /* Puedes añadir más estilos si la fuente lo requiere, como letter-spacing, etc. */
         }
 
         h1 .emoji {
@@ -232,7 +217,7 @@
 </head>
 <body>
     <header>
-        <h1><span class="custom-font-heading">INFORMACIÓN FINANCIERA</span> <span class="emoji">🦄</span></h1>
+        <h1>INFORMACIÓN FINANCIERA <span class="emoji">🦄</span></h1>
     </header>
 
     <main id="contentToPdf"> 
