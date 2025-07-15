@@ -690,8 +690,7 @@
                     
                     document.getElementById(`${gasto.id}Mensual`).textContent = formatCurrency(mensualValue);
                     // Actualizar el span de anual también, en caso de que el input de annual no sea directamente el span
-                    // Si el input en anual es el que se llena y el span es el que muestra el cálculo, esta línea asegura la consistencia.
-                    document.getElementById(`${gasto.id}AnualInput`).value = anualValue; // Asegura que el input muestre el valor si fue modificado programáticamente o recargado
+                    document.getElementById(`${gasto.id}AnualInput`).value = anualValue; 
                     
                     subTotalGastosAnualesMensual += mensualValue;
                     subTotalGastosAnualesAnual += anualValue;
@@ -701,7 +700,7 @@
                 document.getElementById('subTotalGastosAnualesAnual').textContent = formatCurrency(subTotalGastosAnualesAnual);
 
                 // Calcular porcentajes de gastos anuales (respecto al subtotal anual de gastos anuales)
-                if (subTotalGastosAnualesAnual > 0) { // Usamos el total anual para los porcentajes anuales
+                if (subTotalGastosAnualesAnual > 0) { 
                     gastosAnuales.forEach(gasto => {
                         const anualValue = parseFloat(document.getElementById(gasto.inputId).value) || 0;
                         const porcentaje = anualValue / subTotalGastosAnualesAnual;
@@ -730,8 +729,9 @@
                 document.getElementById('totalOtrosGastosAnual').textContent = formatCurrency(totalOtrosGastosAnual);
 
                 // --- CALCULO DE TOTAL DE GASTOS ---
+                // Esta es la parte clave que asegura que todos los gastos se sumen para el total
                 const totalGastosMensual = subTotalGastosMensual + subTotalGastosAnualesMensual + totalOtrosGastosMensual;
-                const totalGastosAnual = totalGastosMensual * 12;
+                const totalGastosAnual = totalGastosMensual * 12; // Se mantiene como 12 veces el total mensual
                 document.getElementById('totalGastosMensual').textContent = formatCurrency(totalGastosMensual);
                 document.getElementById('totalGastosAnual').textContent = formatCurrency(totalGastosAnual);
 
