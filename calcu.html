@@ -19,7 +19,7 @@
 
         /* Estilos Generales */
         body {
-            font-family: Arial, sans-serif; /* Fuente original */
+            font-family: Arial, sans-serif;
             margin: 20px;
             background-color: var(--mimi-pink); /* Fondo suave */
             color: #333; /* Texto oscuro para legibilidad */
@@ -220,8 +220,7 @@
         <h1>INFORMACIÓN FINANCIERA <span class="emoji">🦄</span></h1>
     </header>
 
-    <main id="contentToPdf"> 
-        <section class="ingresos-section">
+    <main id="contentToPdf"> <section class="ingresos-section">
             <h2>Ingresos</h2>
             <table>
                 <thead>
@@ -411,26 +410,26 @@
                 <tbody>
                     <tr data-concept="predial">
                         <td>Predial</td>
-                        <td><span id="gastoPredialMensual"></span></td> 
-                        <td><input type="number" id="gastoPredialAnualInput" value="0"></td> 
+                        <td><input type="number" id="gastoPredialMensual" value="0"></td>
+                        <td><span id="gastoPredialAnual"></span></td>
                         <td><span id="gastoPredialPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="tenenciaAuto">
                         <td>Tenencia Auto</td>
-                        <td><span id="gastoTenenciaAutoMensual"></span></td> 
-                        <td><input type="number" id="gastoTenenciaAutoAnualInput" value="0"></td> 
+                        <td><input type="number" id="gastoTenenciaAutoMensual" value="0"></td>
+                        <td><span id="gastoTenenciaAutoAnual"></span></td>
                         <td><span id="gastoTenenciaAutoPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="segurosAutoCasa">
                         <td>Seguros (Auto, Casa, GMM)</td>
-                        <td><span id="gastoSegurosAutoCasaMensual"></span></td> 
-                        <td><input type="number" id="gastoSegurosAutoCasaAnualInput" value="0"></td> 
+                        <td><input type="number" id="gastoSegurosAutoCasaMensual" value="0"></td>
+                        <td><span id="gastoSegurosAutoCasaAnual"></span></td>
                         <td><span id="gastoSegurosAutoCasaPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="inscripciones">
                         <td>Inscripciones</td>
-                        <td><span id="gastoInscripcionesMensual"></span></td> 
-                        <td><input type="number" id="gastoInscripcionesAnualInput" value="0"></td> 
+                        <td><input type="number" id="gastoInscripcionesMensual" value="0"></td>
+                        <td><span id="gastoInscripcionesAnual"></span></td>
                         <td><span id="gastoInscripcionesPorcentaje"></span></td>
                     </tr>
                     <tr class="total-row">
@@ -595,6 +594,8 @@
             const inputs = document.querySelectorAll('input[type="number"]');
             const textInputs = document.querySelectorAll('input[type="text"]');
             
+            // La variable 'contentToPdf' ya no se usa para generar PDF, pero se mantiene su ID en el HTML.
+
             // Función para formatear números a moneda (MXN)
             const formatCurrency = (value) => {
                 return new Intl.NumberFormat('es-MX', {
@@ -682,35 +683,30 @@
                     });
                 }
 
+
                 // --- CALCULO DE GASTOS ANUALES ---
                 let subTotalGastosAnualesMensual = 0;
-                let subTotalGastosAnualesAnual = 0;
                 const gastosAnuales = [
-                    { id: 'gastoPredial', inputId: 'gastoPredialAnualInput' },
-                    { id: 'gastoTenenciaAuto', inputId: 'gastoTenenciaAutoAnualInput' },
-                    { id: 'gastoSegurosAutoCasa', inputId: 'gastoSegurosAutoCasaAnualInput' },
-                    { id: 'gastoInscripciones', inputId: 'gastoInscripcionesAnualInput' },
+                    { id: 'gastoPredial', value: parseFloat(document.getElementById('gastoPredialMensual').value) || 0 },
+                    { id: 'gastoTenenciaAuto', value: parseFloat(document.getElementById('gastoTenenciaAutoMensual').value) || 0 },
+                    { id: 'gastoSegurosAutoCasa', value: parseFloat(document.getElementById('gastoSegurosAutoCasaMensual').value) || 0 },
+                    { id: 'gastoInscripciones', value: parseFloat(document.getElementById('gastoInscripcionesMensual').value) || 0 },
                 ];
 
                 gastosAnuales.forEach(gasto => {
-                    const anualValue = parseFloat(document.getElementById(gasto.inputId).value) || 0;
-                    const mensualValue = anualValue / 12;
-                    
-                    document.getElementById(`${gasto.id}Mensual`).textContent = formatCurrency(mensualValue);
-                    document.getElementById(`${gasto.id}AnualInput`).value = anualValue; 
-                    
-                    subTotalGastosAnualesMensual += mensualValue;
-                    subTotalGastosAnualesAnual += anualValue;
+                    const anual = gasto.value * 12;
+                    document.getElementById(`${gasto.id}Anual`).textContent = formatCurrency(anual);
+                    subTotalGastosAnualesMensual += gasto.value;
                 });
 
+                const subTotalGastosAnualesAnual = subTotalGastosAnualesMensual * 12;
                 document.getElementById('subTotalGastosAnualesMensual').textContent = formatCurrency(subTotalGastosAnualesMensual);
                 document.getElementById('subTotalGastosAnualesAnual').textContent = formatCurrency(subTotalGastosAnualesAnual);
 
-                // Calcular porcentajes de gastos anuales (respecto al subtotal anual de gastos anuales)
-                if (subTotalGastosAnualesAnual > 0) { 
+                // Calcular porcentajes de gastos anuales (si aplica)
+                if (subTotalGastosAnualesMensual > 0) {
                     gastosAnuales.forEach(gasto => {
-                        const anualValue = parseFloat(document.getElementById(gasto.inputId).value) || 0;
-                        const porcentaje = anualValue / subTotalGastosAnualesAnual;
+                        const porcentaje = gasto.value / subTotalGastosAnualesMensual;
                         document.getElementById(`${gasto.id}Porcentaje`).textContent = formatPercentage(porcentaje);
                     });
                 } else {
@@ -719,24 +715,28 @@
                     });
                 }
 
+
                 // --- CALCULO DE OTROS GASTOS (NP) ---
                 let totalOtrosGastosMensual = 0;
-                const otrosGastosRows = document.querySelectorAll('#otrosGastosBody tr');
-                otrosGastosRows.forEach(row => {
-                    const mensualInput = row.querySelector('input[type="number"]');
-                    const anualSpan = row.querySelector('span');
-                    const mensualValue = parseFloat(mensualInput.value) || 0;
-                    const anualValue = mensualValue * 12;
-                    anualSpan.textContent = formatCurrency(anualValue);
-                    totalOtrosGastosMensual += mensualValue;
+                document.querySelectorAll('#otrosGastosBody tr').forEach(row => {
+                    const monthlyInput = row.querySelector('input[type="number"]');
+                    const annualSpan = row.querySelector('span');
+
+                    if (monthlyInput && annualSpan) {
+                        const monthlyValue = parseFloat(monthlyInput.value) || 0;
+                        const annualValue = monthlyValue * 12;
+                        annualSpan.textContent = formatCurrency(annualValue);
+                        totalOtrosGastosMensual += monthlyValue;
+                    }
                 });
                 const totalOtrosGastosAnual = totalOtrosGastosMensual * 12;
                 document.getElementById('totalOtrosGastosMensual').textContent = formatCurrency(totalOtrosGastosMensual);
                 document.getElementById('totalOtrosGastosAnual').textContent = formatCurrency(totalOtrosGastosAnual);
 
-                // --- CALCULO DE TOTAL DE GASTOS ---
+
+                // --- CALCULO TOTAL DE GASTOS ---
                 const totalGastosMensual = subTotalGastosMensual + subTotalGastosAnualesMensual + totalOtrosGastosMensual;
-                const totalGastosAnual = totalGastosMensual * 12; 
+                const totalGastosAnual = totalGastosMensual * 12;
                 document.getElementById('totalGastosMensual').textContent = formatCurrency(totalGastosMensual);
                 document.getElementById('totalGastosAnual').textContent = formatCurrency(totalGastosAnual);
 
@@ -747,23 +747,18 @@
                 document.getElementById('capacidadAhorroAnual').textContent = formatCurrency(capacidadAhorroAnual);
             };
 
-            // Añadir listeners a todos los inputs numéricos para recalcular al cambiar
+            // Inicializar cálculos al cargar la página
+            calculateAll();
+
+            // Añadir event listeners a todos los inputs numéricos para recalcular al cambiar
             inputs.forEach(input => {
                 input.addEventListener('input', calculateAll);
             });
 
-            // Añadir listeners a los inputs de texto en "Otros Gastos" para que el cálculo también se active
+            // Añadir event listeners a los inputs de texto en "Otros Gastos" para que también actualicen (aunque no afecten cálculos)
             textInputs.forEach(input => {
-                input.addEventListener('input', calculateAll);
+                input.addEventListener('input', calculateAll); // Llama a calculateAll para que se actualicen las celdas de gasto anual.
             });
-
-            // Asegurarse de añadir listeners a los inputs de gastos anuales
-            document.querySelectorAll('.gastos-anuales-section input[type="number"]').forEach(input => {
-                input.addEventListener('input', calculateAll);
-            });
-
-            // Llamar a la función de cálculo al cargar la página para inicializar los valores
-            calculateAll();
         });
     </script>
 </body>
