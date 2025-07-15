@@ -411,19 +411,27 @@
                 <tbody>
                     <tr data-concept="predial">
                         <td>Predial</td>
-                        <td><span id="gastoPredialMensual"></span></td> <td><input type="number" id="gastoPredialAnualInput" value="0"></td> <td><span id="gastoPredialPorcentaje"></span></td>
+                        <td><span id="gastoPredialMensual"></span></td> 
+                        <td><input type="number" id="gastoPredialAnualInput" value="0"></td> 
+                        <td><span id="gastoPredialPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="tenenciaAuto">
                         <td>Tenencia Auto</td>
-                        <td><span id="gastoTenenciaAutoMensual"></span></td> <td><input type="number" id="gastoTenenciaAutoAnualInput" value="0"></td> <td><span id="gastoTenenciaAutoPorcentaje"></span></td>
+                        <td><span id="gastoTenenciaAutoMensual"></span></td> 
+                        <td><input type="number" id="gastoTenenciaAutoAnualInput" value="0"></td> 
+                        <td><span id="gastoTenenciaAutoPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="segurosAutoCasa">
                         <td>Seguros (Auto, Casa, GMM)</td>
-                        <td><span id="gastoSegurosAutoCasaMensual"></span></td> <td><input type="number" id="gastoSegurosAutoCasaAnualInput" value="0"></td> <td><span id="gastoSegurosAutoCasaPorcentaje"></span></td>
+                        <td><span id="gastoSegurosAutoCasaMensual"></span></td> 
+                        <td><input type="number" id="gastoSegurosAutoCasaAnualInput" value="0"></td> 
+                        <td><span id="gastoSegurosAutoCasaPorcentaje"></span></td>
                     </tr>
                     <tr data-concept="inscripciones">
                         <td>Inscripciones</td>
-                        <td><span id="gastoInscripcionesMensual"></span></td> <td><input type="number" id="gastoInscripcionesAnualInput" value="0"></td> <td><span id="gastoInscripcionesPorcentaje"></span></td>
+                        <td><span id="gastoInscripcionesMensual"></span></td> 
+                        <td><input type="number" id="gastoInscripcionesAnualInput" value="0"></td> 
+                        <td><span id="gastoInscripcionesPorcentaje"></span></td>
                     </tr>
                     <tr class="total-row">
                         <td><strong>Subtotal Gastos Anuales</strong></td>
@@ -689,7 +697,6 @@
                     const mensualValue = anualValue / 12;
                     
                     document.getElementById(`${gasto.id}Mensual`).textContent = formatCurrency(mensualValue);
-                    // Actualizar el span de anual también, en caso de que el input de annual no sea directamente el span
                     document.getElementById(`${gasto.id}AnualInput`).value = anualValue; 
                     
                     subTotalGastosAnualesMensual += mensualValue;
@@ -712,7 +719,6 @@
                     });
                 }
 
-
                 // --- CALCULO DE OTROS GASTOS (NP) ---
                 let totalOtrosGastosMensual = 0;
                 const otrosGastosRows = document.querySelectorAll('#otrosGastosBody tr');
@@ -729,9 +735,8 @@
                 document.getElementById('totalOtrosGastosAnual').textContent = formatCurrency(totalOtrosGastosAnual);
 
                 // --- CALCULO DE TOTAL DE GASTOS ---
-                // Esta es la parte clave que asegura que todos los gastos se sumen para el total
                 const totalGastosMensual = subTotalGastosMensual + subTotalGastosAnualesMensual + totalOtrosGastosMensual;
-                const totalGastosAnual = totalGastosMensual * 12; // Se mantiene como 12 veces el total mensual
+                const totalGastosAnual = totalGastosMensual * 12; 
                 document.getElementById('totalGastosMensual').textContent = formatCurrency(totalGastosMensual);
                 document.getElementById('totalGastosAnual').textContent = formatCurrency(totalGastosAnual);
 
@@ -752,7 +757,7 @@
                 input.addEventListener('input', calculateAll);
             });
 
-            // Asegurarse de añadir listeners a los nuevos inputs de gastos anuales
+            // Asegurarse de añadir listeners a los inputs de gastos anuales
             document.querySelectorAll('.gastos-anuales-section input[type="number"]').forEach(input => {
                 input.addEventListener('input', calculateAll);
             });
