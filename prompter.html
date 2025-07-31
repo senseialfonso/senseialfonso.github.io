@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Generador de Prompts para Actividades e Instrumentos de Evaluación TecNM</title>
 <style>
-/* --- Adaptación oscura tipo Easy Peasy AI sin romper funcionalidad --- */
+/* --- Adaptación visual inspirada en prompt-generators.com --- */
 
 body {
   font-family: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  background: linear-gradient(135deg, #ffe9f5, #d0e8ff);
   margin: 0;
   padding: 0;
-  color: #eaeaea;
+  color: #333;
 }
 
 h1, h2 {
@@ -24,9 +24,9 @@ h1, h2 {
 #multi-step-form-container {
   max-width: 900px;
   margin: 3rem auto;
-  background: #2c2c2c;
+  background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 2.5rem 3rem 3rem;
 }
 
@@ -53,13 +53,13 @@ ul.form-stepper {
   right: 0;
   width: 100%;
   height: 2px;
-  background-color: #555;
+  background-color: #e2e8f0;
   transform: translateY(-50%);
   z-index: 0;
 }
 
 .form-stepper li.form-stepper-completed:not(:last-child):after {
-  background-color: #4ade80;
+  background-color: #38b2ac;
 }
 
 .form-stepper-circle {
@@ -68,8 +68,8 @@ ul.form-stepper {
   height: 40px;
   line-height: 40px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  color: #eaeaea;
+  background: #f0f0f0;
+  color: #333;
   font-weight: 600;
   z-index: 1;
   position: relative;
@@ -78,33 +78,33 @@ ul.form-stepper {
 }
 
 .form-stepper-active .form-stepper-circle {
-  background-color: #007bff !important;
+  background-color: #7b61ff !important;
 }
 
 .form-stepper-completed .form-stepper-circle {
-  background-color: #4ade80 !important;
+  background-color: #38b2ac !important;
 }
 
 .label {
   font-size: 1rem;
-  color: #999;
+  color: #555;
   user-select: none;
 }
 
 .form-stepper-active .label {
-  color: #007bff !important;
+  color: #7b61ff !important;
 }
 
 .form-stepper-completed .label {
-  color: #4ade80 !important;
+  color: #38b2ac !important;
 }
 
 .form-step {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
   padding: 2rem 2.5rem;
   display: none;
-  background-color: #3a3a3a;
+  background-color: #f9fafb;
 }
 
 .form-step.active {
@@ -128,10 +128,10 @@ select {
   width: 100%;
   padding: 0.6rem 0.9rem;
   font-size: 1rem;
-  background-color: #4a4a4a;
-  border: 1px solid #666;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e0;
   border-radius: 5px;
-  color: #eaeaea;
+  color: #333;
   resize: vertical;
   box-sizing: border-box;
 }
@@ -148,11 +148,11 @@ textarea {
 }
 
 .button {
-  background-color: #007bff;
+  background: linear-gradient(90deg, #7b61ff, #a461d8);
   border: none;
   padding: 0.7rem 1.5rem;
   border-radius: 6px;
-  color: white;
+  color: #fff;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -160,7 +160,7 @@ textarea {
 }
 
 .button:hover:not(:disabled) {
-  background-color: #007bff;
+  background-color: #7b61ff;
   transform: scale(1.05);
 }
 
@@ -170,7 +170,7 @@ textarea {
 }
 
 .result-box {
-  background: #4a4a4a;
+  background: #f0f4f8;
   border-radius: 6px;
   padding: 1rem;
   margin-top: 2rem;
@@ -179,7 +179,7 @@ textarea {
   max-height: 350px;
   overflow-y: auto;
   position: relative;
-  color: #eaeaea;
+  color: #333;
   font-size: 0.9rem;
 }
 
@@ -187,7 +187,7 @@ textarea {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: #5a5a5a;
+  background: #e2e8f0;
   border: none;
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
@@ -195,11 +195,11 @@ textarea {
   cursor: pointer;
   transition: background-color 0.3s ease;
   user-select: none;
-  color: #eaeaea;
+  color: #333;
 }
 
 .copy-btn:hover {
-  background-color: #777;
+  background-color: #cbd5e0;
 }
 
 @media(max-width: 600px) {
