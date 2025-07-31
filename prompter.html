@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Generador de Prompts para Actividades e Instrumentos de Evaluación TecNM</title>
+<style>
+/* --- Adaptación oscura tipo Easy Peasy AI sin romper funcionalidad --- */
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  margin: 0;
+  padding: 0;
+  color: #eaeaea;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+#multi-step-form-container {
+  max-width: 900px;
+  margin: 3rem auto;
+  background: #2c2c2c;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  padding: 2.5rem 3rem 3rem;
+}
+
+ul.form-stepper {
+  counter-reset: section;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0;
+  list-style: none;
+}
+
+.form-stepper li {
+  position: relative;
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+}
+
+.form-stepper li:not(:last-child):after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #555;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.form-stepper li.form-stepper-completed:not(:last-child):after {
+  background-color: #4ade80;
+}
+
+.form-stepper-circle {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #eaeaea;
+  font-weight: 600;
+  z-index: 1;
+  position: relative;
+  user-select: none;
+  margin-bottom: 0.5rem;
+}
+
+.form-stepper-active .form-stepper-circle {
+  background-color: #007bff !important;
+}
+
+.form-stepper-completed .form-stepper-circle {
+  background-color: #4ade80 !important;
+}
+
+.label {
+  font-size: 1rem;
+  color: #999;
+  user-select: none;
+}
+
+.form-stepper-active .label {
+  color: #007bff !important;
+}
+
+.form-stepper-completed .label {
+  color: #4ade80 !important;
+}
+
+.form-step {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  display: none;
+  background-color: #3a3a3a;
+}
+
+.form-step.active {
+  display: block;
+}
+
+.field-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+input[type=text],
+textarea,
+select {
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  font-size: 1rem;
+  background-color: #4a4a4a;
+  border: 1px solid #666;
+  border-radius: 5px;
+  color: #eaeaea;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 80px;
+}
+
+.buttons-nav {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.button {
+  background-color: #007bff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #007bff;
+  transform: scale(1.05);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.result-box {
+  background: #4a4a4a;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 2rem;
+  font-family: monospace;
+  white-space: pre-wrap;
+  max-height: 350px;
+  overflow-y: auto;
+  position: relative;
+  color: #eaeaea;
+  font-size: 0.9rem;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #5a5a5a;
+  border: none;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  color: #eaeaea;
+}
+
+.copy-btn:hover {
+  background-color: #777;
+}
+
+@media(max-width: 600px) {
+  #multi-step-form-container {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div id="multi-step-form-container">
+
+  <h1 style="font-weight: bold;">Generador de Prompts para Actividades e Instrumentos de Evaluación TecNM</h1>
+
+  <!-- Barra de progreso / pasos -->
+  <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+    <li class="form-stepper-active form-stepper-list" step="1" id="stepper1">
+      <a class="mx-2" style="user-select:none;">
+        <span class="form-stepper-circle"><span>1</span></span>
+        <div class="label">Fase 1: Generar Actividad</div>
+      </a>
+    </li>
+    <li class="form-stepper-unfinished form-stepper-list" step="2" id="stepper2" style="cursor:pointer;">
+      <a class="mx-2" style="user-select:none;">
+        <span class="form-stepper-circle text-muted"><span>2</span></span>
+        <div class="label text-muted">Fase 2: Instrumento Evaluación</div>
+      </a>
+    </li>
+  </ul>
+
+  <form id="ec0076Form" name="ec0076Form" method="POST" novalidate>
+
+    <!-- Paso 1 -->
+    <section id="step-1" class="form-step active">
+
+      <h2 class="font-normal">Fase 1 - Generar actividad mejorada</h2>
+
+      <div class="field-group">
+        <label for="carrera">Carrera</label>
+        <input type="text" id="carrera" name="carrera" placeholder="Ej. Ingeniería en TICs" required />
+      </div>
+
+      <div class="field-group">
+        <label for="asignatura">Asignatura</label>
+        <input type="text" id="asignatura" name="asignatura" placeholder="Ej. Fundamentos de Bases de Datos" required />
+      </div>
+
+      <div class="field-group">
+        <label for="tema">Tema</label>
+        <input type="text" id="tema" name="tema" placeholder="Ej. Diseño de Bases de Datos con el modelo E-R" required />
+      </div>
+
+      <div class="field-group">
+        <label for="subtema">Subtema</label>
+        <input type="text" id="subtema" name="subtema" placeholder="Ej. Diseño con diagramas E-R" required />
+      </div>
+
+      <div class="field-group">
+        <label for="competencias">Competencias (especifícas y genéricas del tema)</label>
+        <textarea id="competencias" name="competencias" rows="3" placeholder="Pega aquí todas las competencias que desees incluir" required></textarea>
+      </div>
+
+      <div class="field-group">
+        <label for="actividadCorta">Actividad base a mejorar (versión corta)</label>
+        <textarea id="actividadCorta" name="actividadCorta" rows="3" placeholder="Ej. Identificar modelos de bases de datos mediante investigación documental y elaborar una tabla comparativa" required></textarea>
+      </div>
+
+      <div class="field-group">
+        <label for="personalizacion">Personalizar actividad con temas actuales (opcional)</label>
+        <input type="text" id="personalizacion" name="personalizacion" placeholder="Puedes colocar algo que les interese al grupo: películas, situaciones actuales, música, etc" />
+      </div>
+
+      <div class="buttons-nav">
+        <!-- Quitar botón "Siguiente" aquí según tu petición -->
+        <button type="button" class="button" id="btnGenerar1">🤖 Generar Prompt</button>
+      </div>
+
+      <div id="resultActividad" class="result-box" style="display:none;">
+        <button type="button" class="copy-btn" onclick="copyText('promptActividad')">Copiar</button>
+        <pre id="promptActividad"></pre>
+      </div>
+
+    </section>
+
+    <!-- Paso 2 -->
+    <section id="step-2" class="form-step">
+
+      <h2 class="font-normal">Fase 2 - Generar instrumento de evaluación</h2>
+
+      <div class="field-group">
+        <label for="actividadGenerada">Actividad generada (pega aquí la actividad de la Fase 1)</label>
+        <textarea id="actividadGenerada" name="actividadGenerada" rows="6" placeholder="Pega la actividad generada en la Fase 1" required></textarea>
+      </div>
+
+      <div class="field-group">
+        <label for="instrumento">Selecciona el instrumento de evaluación</label>
+        <select id="instrumento" name="instrumento" required>
+          <option value="">--Selecciona--</option>
+          <option value="Rúbrica">Rúbrica</option>
+          <option value="Cuestionario">Cuestionario</option>
+          <option value="Prueba práctica / desempeño">Prueba práctica / desempeño</option>
+          <option value="Portafolio">Portafolio</option>
+          <option value="Proyecto integrador">Proyecto integrador</option>
+        </select>
+      </div>
+
+      <div class="buttons-nav">
+        <button type="button" class="button" id="btnPrev2">Anterior</button>
+        <button type="button" class="button" id="btnGenerar2">🤖Generar Prompt</button>
+      </div>
+
+      <div id="resultEvaluacion" class="result-box" style="display:none;">
+        <button type="button" class="copy-btn" onclick="copyText('promptEvaluacion')">Copiar</button>
+        <pre id="promptEvaluacion"></pre>
+      </div>
+
+    </section>
+
+  </form>
+
+</div>
+
+<script>
+  let promptGenerado = false; // controla si el prompt de Fase 1 ya fue generado
+
+  // Navegación entre pasos, con validación para pasar a fase 2 solo si prompt generado
+  function navigateToFormStep(stepNumber) {
+    if (stepNumber === 2 && !promptGenerado) {
+      alert('Debes generar el prompt de la Fase 1 antes de avanzar a la Fase 2.');
+      return;
+    }
+
+    // Ocultar todos los pasos
+    document.querySelectorAll(".form-step").forEach(formStep => {
+      formStep.classList.remove("active");
+    });
+
+    // Mostrar paso actual
+    const step = document.querySelector("#step-" + stepNumber);
+    if (step) step.classList.add("active");
+
+    // Actualizar barra de progreso
+    document.querySelectorAll(".form-stepper-list").forEach((stepElem) => {
+      stepElem.classList.remove("form-stepper-active", "form-stepper-completed", "form-stepper-unfinished");
+      const stepAttr = parseInt(stepElem.getAttribute("step"));
+      if (stepAttr < stepNumber) {
+        stepElem.classList.add("form-stepper-completed");
+      } else if (stepAttr === stepNumber) {
+        stepElem.classList.add("form-stepper-active");
+      } else {
+        stepElem.classList.add("form-stepper-unfinished");
+      }
+    });
+
+    // Al cambiar a paso 1, ocultar resultados de fase 2
+    if(stepNumber === 1) {
+      document.getElementById('resultEvaluacion').style.display = 'none';
+      document.getElementById('promptEvaluacion').textContent = '';
+    } else {
+      // Al cambiar a paso 2, ocultar resultados de fase 1
+      document.getElementById('resultActividad').style.display = 'none';
+      document.getElementById('promptActividad').textContent = '';
+    }
+  }
+
+  // Validación paso 1 (campos obligatorios)
+  function validarPaso1() {
+    const requiredFields = ['carrera','asignatura','tema','subtema','competencias','actividadCorta'];
+    for(let id of requiredFields) {
+      if (!document.getElementById(id).value.trim()) {
+        alert('Por favor completa todos los campos obligatorios en la Fase 1.');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // Generar prompt fase 1
+  function generarPromptActividad() {
+    if(!validarPaso1()) return;
+
+    const carrera = document.getElementById('carrera').value.trim();
+    const asignatura = document.getElementById('asignatura').value.trim();
+    const tema = document.getElementById('tema').value.trim();
+    const subtema = document.getElementById('subtema').value.trim();
+    const competencias = document.getElementById('competencias').value.trim();
+    const actividadCorta = document.getElementById('actividadCorta').value.trim();
+    const personalizacion = document.getElementById('personalizacion').value.trim();
+
+    const prompt = `Eres un experto en diseño educativo universitario en México, con dominio del modelo educativo del TecNM, enfoque por competencias y amplia experiencia en evaluación conforme al estándar EC0076 del CONOCER.
+
+Contexto de la solicitud:
+
+País: México
+Carrera: ${carrera}
+Asignatura: ${asignatura}
+Tema: ${tema}
+Subtema: ${subtema}
+
+Competencias:
+${competencias}
+
+Nota: No es necesario incluir todas las competencias listadas, solo aquellas pertinentes para la actividad.
+
+Actividad base a mejorar:
+"${actividadCorta}"
+
+Tareas a realizar:
+
+1. Redacta un objetivo claro y específico para la actividad, utilizando la taxonomía de Bloom, que refleje lo que el estudiante deberá lograr al finalizarla.
+2. Mejora la actividad base para que sea más profunda, pertinente y con propósito definido, alineada al contexto universitario y al estándar EC0076.
+3. Diseña cuatro variantes de la actividad base:
+   - Una actividad creativa, integrando personalización temática${personalizacion ? ` con el tema "${personalizacion}"` : ''}, que pueda desarrollarse como infografía, podcast o video explicativo.
+   - Tres actividades formales, académicas y rigurosas, pensadas para nivel universitario.
+
+Para cada actividad:
+
+4. Proporciona instrucciones claras, detalladas y viables para el estudiante.
+5. Sugiere bibliografía en formato APA (solo libros y artículos académicos; sin sitios web ni URLs).
+6. Recomienda recursos digitales confiables (sin enlaces directos).
+7. Estima el tiempo aproximado requerido para su desarrollo.
+8. Si la actividad lo justifica, incluye un estudio de caso completo, listo para que el alumno lo analice y lo utilice en la actividad.
+9. Define el formato de evaluación más adecuado para cada actividad (elige solo entre: Rúbrica, Cuestionario, Prueba práctica / desempeño, Portafolio o Proyecto integrador).
+10. Sugiere que el producto final pueda imprimirse o exportarse en PDF, en hoja tamaño carta, incluyendo espacio para firma y fecha, para su uso como evidencia documental o portafolio.
+
+Entrega:
+
+Presenta el resultado de forma clara, estructurada y listo para su aplicación docente.`;
+
+    document.getElementById('promptActividad').innerText = prompt;
+    document.getElementById('resultActividad').style.display = 'block';
+    promptGenerado = true;
+
+    // Habilitar el paso 2 en la barra (cambio visual)
+    const stepper2 = document.getElementById('stepper2');
+    stepper2.querySelector('.form-stepper-circle').classList.remove('text-muted');
+    stepper2.querySelector('.label').classList.remove('text-muted');
+  }
+
+  // Generar prompt fase 2
+  function generarPromptEvaluacion() {
+    const actividadGenerada = document.getElementById('actividadGenerada').value.trim();
+    const instrumento = document.getElementById('instrumento').value;
+
+    if (!actividadGenerada) {
+      alert('Por favor pega la actividad generada en la Fase 1.');
+      return;
+    }
+    if (!instrumento) {
+      alert('Selecciona un instrumento de evaluación.');
+      return;
+    }
+
+    const prompt = `Eres un experto en evaluación universitaria en México con conocimiento del estándar EC0076 del CONOCER.
+
+Con base en la siguiente actividad de aprendizaje:
+
+""" 
+${actividadGenerada}
+"""
+
+Tareas a realizar:
+
+1. Genera un instrumento de evaluación ${instrumento.toLowerCase()} adecuado para la actividad proporcionada, que contemple las características específicas y el contexto universitario, así también poder tener una columna para calificarlo con base al puntaje.
+2. El instrumento debe caber en una hoja tamaño carta y estar listo para imprimirse o exportarse en PDF.
+3. Sugiere que se incluya espacio para firma y fecha para evidencia documental o portafolio.
+
+Entrega:
+
+Presenta el instrumento de evaluación de forma clara, estructurada y listo para su aplicación en contextos universitarios.`;
+
+    document.getElementById('promptEvaluacion').innerText = prompt;
+    document.getElementById('resultEvaluacion').style.display = 'block';
+  }
+
+  // Copiar texto
+  function copyText(id) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Texto copiado al portapapeles');
+    }, () => {
+      alert('Error al copiar el texto');
+    });
+  }
+
+  // Eventos botones
+  document.getElementById('btnGenerar1').addEventListener('click', () => {
+    generarPromptActividad();
+  });
+
+  document.getElementById('btnPrev2').addEventListener('click', () => {
+    navigateToFormStep(1);
+  });
+
+  document.getElementById('btnGenerar2').addEventListener('click', () => {
+    generarPromptEvaluacion();
+  });
+
+  // Eventos clic en barra de progreso para paso 2 con validación
+  document.getElementById('stepper2').addEventListener('click', () => {
+    navigateToFormStep(2);
+  });
+
+  document.getElementById('stepper1').addEventListener('click', () => {
+    navigateToFormStep(1);
+  });
+
+  // Inicializa en paso 1
+  navigateToFormStep(1);
+</script>
+
+</body>
+</html>
