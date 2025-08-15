@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Generador de Prompts para Actividades e Instrumentos de Evaluación TecNM</title>
+<style>
+/* --- Estilo base, limpio y listo para copiar/pegar --- */
+:root{
+  --bg1:#ffe9f5;--bg2:#d0e8ff;--ink:#333;--muted:#555;--card:#fff;--card-2:#f9fafb;--line:#e2e8f0;--accent:#7b61ff;--accent-2:#a461d8;--done:#38b2ac;
+}
+*{box-sizing:border-box}
+body{font-family: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--ink);margin:0}
+h1,h2{margin:0 0 1rem 0;font-weight:600;text-align:center}
+#multi-step-form-container{max-width:900px;margin:3rem auto;background:var(--card);border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.1);padding:2.5rem 3rem 3rem}
+ul.form-stepper{counter-reset:section;margin:0 0 3rem 0;display:flex;justify-content:space-between;padding:0;list-style:none}
+.form-stepper li{position:relative;flex:1;text-align:center;cursor:pointer}
+.form-stepper li:not(:last-child):after{content:"";position:absolute;top:50%;right:0;width:100%;height:2px;background:var(--line);transform:translateY(-50%);z-index:0}
+.form-stepper li.form-stepper-completed:not(:last-child):after{background:var(--done)}
+.form-stepper-circle{display:inline-block;width:40px;height:40px;line-height:40px;border-radius:50%;background:#f0f0f0;color:var(--ink);font-weight:600;z-index:1;position:relative;user-select:none;margin-bottom:.5rem}
+.form-stepper-active .form-stepper-circle{background:var(--accent)!important;color:#fff}
+.form-stepper-completed .form-stepper-circle{background:var(--done)!important;color:#fff}
+.label{font-size:1rem;color:var(--muted);user-select:none}
+.form-stepper-active .label{color:var(--accent)!important}
+.form-stepper-completed .label{color:var(--done)!important}
+.form-step{border:1px solid var(--line);border-radius:20px;padding:2rem 2.5rem;display:none;background:var(--card-2)}
+.form-step.active{display:block}
+.field-group{margin-bottom:1.1rem;text-align:left}
+label{display:block;font-weight:600;margin-bottom:.25rem}
+input[type=text], input[type=number], textarea, select{width:100%;padding:.6rem .9rem;font-size:1rem;background:#fff;border:1px solid #cbd5e0;border-radius:6px;color:var(--ink);resize:vertical}
+small.hint{display:block;margin-top:.25rem;color:#666}
+.buttons-nav{margin-top:1.4rem;display:flex;gap:1rem;flex-wrap:wrap}
+.button{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;padding:.7rem 1.5rem;border-radius:8px;color:#fff;font-weight:600;cursor:pointer;transition:.2s}
+.button:hover:not(:disabled){transform:scale(1.03)}
+.button:disabled{opacity:.5;cursor:not-allowed}
+.result-box{background:#f0f4f8;border-radius:10px;padding:1rem;margin-top:1rem;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;white-space:pre-wrap;max-height:360px;overflow:auto;position:relative;color:var(--ink);font-size:.92rem}
+.copy-btn{position:absolute;top:8px;right:8px;background:#e2e8f0;border:none;padding:.3rem .6rem;border-radius:6px;font-size:.82rem;cursor:pointer}
+.copy-btn:hover{background:#cbd5e0}
+hr.sep{border:none;border-top:1px dashed #d2d6dc;margin:1rem 0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:720px){.row{grid-template-columns:1fr}#multi-step-form-container{padding:1rem 1.2rem 1.6rem}}
+</style>
+</head>
+<body>
+<div id="multi-step-form-container">
+  <h1>Generador de Prompts para Actividades e Instrumentos de Evaluación TecNM</h1>
+
+  <!-- Progreso -->
+  <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+    <li class="form-stepper-active form-stepper-list" step="1" id="stepper1">
+      <a class="mx-2" style="user-select:none;">
+        <span class="form-stepper-circle"><span>1</span></span>
+        <div class="label">Fase 1: Generar Actividad</div>
+      </a>
+    </li>
+    <li class="form-stepper-unfinished form-stepper-list" step="2" id="stepper2" style="cursor:pointer;">
+      <a class="mx-2" style="user-select:none;">
+        <span class="form-stepper-circle text-muted"><span>2</span></span>
+        <div class="label text-muted">Fase 2: Instrumento Evaluación</div>
+      </a>
+    </li>
+  </ul>
+
+  <form id="ec0076Form" name="ec0076Form" method="POST" novalidate>
+
+    <!-- Paso 1 -->
+    <section id="step-1" class="form-step active">
+      <h2>Fase 1 - Generar actividad mejorada</h2>
+
+      <div class="row">
+        <div class="field-group">
+          <label for="carrera">Carrera</label>
+          <input type="text" id="carrera" name="carrera" placeholder="Ej. Ingeniería en TICs" required />
+        </div>
+        <div class="field-group">
+          <label for="asignatura">Asignatura</label>
+          <input type="text" id="asignatura" name="asignatura" placeholder="Ej. Fundamentos de Bases de Datos" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field-group">
+          <label for="tema">Tema</label>
+          <input type="text" id="tema" name="tema" placeholder="Ej. Diseño de Bases de Datos con el modelo E-R" required />
+        </div>
+        <div class="field-group">
+          <label for="subtema">Subtema</label>
+          <input type="text" id="subtema" name="subtema" placeholder="Ej. Diseño con diagramas E-R" required />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="competencias">Competencias (específicas y genéricas del tema)</label>
+        <textarea id="competencias" name="competencias" rows="3" placeholder="Pega aquí todas las competencias que desees incluir" required></textarea>
+      </div>
+
+      <div class="field-group">
+        <label for="actividadCorta">Actividad base a mejorar (versión corta)</label>
+        <textarea id="actividadCorta" name="actividadCorta" rows="3" placeholder="Ej. Identificar modelos de BD mediante investigación y elaborar una tabla comparativa" required></textarea>
+      </div>
+
+      <div class="field-group">
+        <label for="personalizacion">Personalizar actividad con temas actuales (opcional)</label>
+        <input type="text" id="personalizacion" name="personalizacion" placeholder="Películas, casos, música, tendencias, etc" />
+        <small class="hint">Se usará sólo para la versión creativa.</small>
+      </div>
+
+      <div class="buttons-nav">
+        <button type="button" class="button" id="btnGenerar1">🤖 Generar Prompt</button>
+      </div>
+
+      <div id="resultActividad" class="result-box" style="display:none;">
+        <button type="button" class="copy-btn" data-copy="promptActividad">Copiar</button>
+        <pre id="promptActividad"></pre>
+      </div>
+    </section>
+
+    <!-- Paso 2 -->
+    <section id="step-2" class="form-step">
+      <h2>Fase 2 - Generar instrumento de evaluación</h2>
+
+      <div class="field-group">
+        <label for="actividadGenerada">Actividad generada (pega aquí la actividad de la Fase 1)</label>
+        <textarea id="actividadGenerada" name="actividadGenerada" rows="6" placeholder="Pega la actividad generada en la Fase 1" required></textarea>
+      </div>
+
+      <div class="row">
+        <div class="field-group">
+          <label for="instrumento">Selecciona el instrumento de evaluación</label>
+          <select id="instrumento" name="instrumento" required>
+            <option value="">--Selecciona--</option>
+            <option value="Rúbrica">Rúbrica</option>
+            <option value="Cuestionario">Cuestionario</option>
+            <option value="Prueba práctica / desempeño">Prueba práctica / desempeño</option>
+            <option value="Portafolio">Portafolio</option>
+            <option value="Proyecto integrador">Proyecto integrador</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="umbral">Umbral de logro (≥ %)</label>
+          <input type="number" id="umbral" name="umbral" min="50" max="100" step="1" value="70" />
+          <small class="hint">Se inserta en las instrucciones del instrumento.</small>
+        </div>
+      </div>
+
+      <!-- Controles específicos por instrumento -->
+      <div id="optsRubrica" class="row" style="display:none;">
+        <div class="field-group">
+          <label for="rubricaCriterios">N.º de criterios (4–6)</label>
+          <input type="number" id="rubricaCriterios" min="4" max="6" step="1" value="5" />
+        </div>
+        <div class="field-group">
+          <label>Niveles de desempeño</label>
+          <input type="text" id="rubricaNiveles" value="Insuficiente, Básico, Satisfactorio, Sobresaliente" />
+          <small class="hint">Separados por coma. Se sugieren 4.</small>
+        </div>
+      </div>
+
+      <div id="optsCuestionario" class="row" style="display:none;">
+        <div class="field-group">
+          <label for="reactivosTotal">N.º de reactivos (12–15)</label>
+          <input type="number" id="reactivosTotal" min="12" max="15" step="1" value="12" />
+          <small class="hint">Se propondrán bloques: recordar, aplicar, analizar.</small>
+        </div>
+        <div class="field-group">
+          <label for="tiempoMin">Tiempo sugerido (minutos)</label>
+          <input type="number" id="tiempoMin" min="15" max="60" step="5" value="30" />
+        </div>
+      </div>
+
+      <div id="optsDesempeno" class="row" style="display:none;">
+        <div class="field-group">
+          <label for="tiempoMax">Tiempo máximo de ejecución (minutos)</label>
+          <input type="number" id="tiempoMax" min="10" max="120" step="5" value="45" />
+        </div>
+        <div class="field-group">
+          <label for="incluyeSeguridad">Incluir sección de seguridad y descalificación</label>
+          <select id="incluyeSeguridad">
+            <option value="sí" selected>Sí</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+      </div>
+
+      <hr class="sep" />
+      <div class="row">
+        <div class="field-group">
+          <label for="tipografiaPt">Tamaño de tipografía (pt)</label>
+          <input type="number" id="tipografiaPt" min="9" max="12" step="1" value="11" />
+        </div>
+        <div class="field-group">
+          <label for="margenCm">Márgenes (cm)</label>
+          <input type="number" id="margenCm" min="1" max="3" step="0.5" value="2" />
+        </div>
+      </div>
+
+      <div class="buttons-nav">
+        <button type="button" class="button" id="btnPrev2">Anterior</button>
+        <button type="button" class="button" id="btnGenerar2">🤖 Generar Prompt</button>
+      </div>
+
+      <div id="resultEvaluacion" class="result-box" style="display:none;">
+        <button type="button" class="copy-btn" data-copy="promptEvaluacion">Copiar</button>
+        <pre id="promptEvaluacion"></pre>
+      </div>
+    </section>
+
+  </form>
+</div>
+
+<script>
+let promptGenerado = false; // controla si el prompt de Fase 1 ya fue generado
+
+function navigateToFormStep(stepNumber){
+  if(stepNumber===2 && !promptGenerado){alert('Debes generar el prompt de la Fase 1 antes de avanzar a la Fase 2.');return;}
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  const step=document.querySelector('#step-'+stepNumber); if(step) step.classList.add('active');
+  document.querySelectorAll('.form-stepper-list').forEach((el)=>{
+    el.classList.remove('form-stepper-active','form-stepper-completed','form-stepper-unfinished');
+    const n=parseInt(el.getAttribute('step')); if(n<stepNumber) el.classList.add('form-stepper-completed');
+    else if(n===stepNumber) el.classList.add('form-stepper-active');
+    else el.classList.add('form-stepper-unfinished');
+  });
+  if(stepNumber===1){
+    document.getElementById('resultEvaluacion').style.display='none';
+    document.getElementById('promptEvaluacion').textContent='';
+  } else {
+    document.getElementById('resultActividad').style.display='none';
+    document.getElementById('promptActividad').textContent='';
+  }
+}
+
+function validarPaso1(){
+  const required=['carrera','asignatura','tema','subtema','competencias','actividadCorta'];
+  for(const id of required){ if(!document.getElementById(id).value.trim()){alert('Completa todos los campos obligatorios en la Fase 1.');return false;} }
+  return true;
+}
+
+function generarPromptActividad(){
+  if(!validarPaso1()) return;
+  const carrera=document.getElementById('carrera').value.trim();
+  const asignatura=document.getElementById('asignatura').value.trim();
+  const tema=document.getElementById('tema').value.trim();
+  const subtema=document.getElementById('subtema').value.trim();
+  const competencias=document.getElementById('competencias').value.trim();
+  const actividadCorta=document.getElementById('actividadCorta').value.trim();
+  const personalizacion=document.getElementById('personalizacion').value.trim();
+
+  const prompt=`Eres un experto en diseño educativo universitario en México, con dominio del modelo educativo del TecNM, enfoque por competencias y amplia experiencia en evaluación conforme al estándar EC0076 del CONOCER.
+
+Contexto de la solicitud:
+
+País: México
+Carrera: ${carrera}
+Asignatura: ${asignatura}
+Tema: ${tema}
+Subtema: ${subtema}
+
+Competencias:
+${competencias}
+
+Nota: No es necesario incluir todas las competencias listadas, solo aquellas pertinentes para la actividad.
+
+Actividad base a mejorar:
+"${actividadCorta}"
+
+Tareas a realizar:
+
+1. Redacta un objetivo claro y específico para la actividad, utilizando la taxonomía de Bloom.
+2. Mejora la actividad base para que sea más profunda, pertinente y alineada al estándar EC0076.
+3. Diseña cuatro variantes de la actividad base:
+   - Una actividad creativa${personalizacion?` con el tema "${personalizacion}"`:''} que pueda desarrollarse como infografía, podcast o video explicativo.
+   - Tres actividades formales, académicas y rigurosas para nivel universitario.
+
+Para cada actividad:
+4. Proporciona instrucciones claras y viables para el estudiante.
+5. Sugiere bibliografía en formato APA (solo libros y artículos académicos; sin sitios web ni URLs).
+6. Recomienda recursos digitales confiables (sin enlaces directos).
+7. Estima el tiempo aproximado requerido.
+8. Si procede, incluye un estudio de caso listo para analizar.
+9. Define el formato de evaluación más adecuado (Rúbrica, Cuestionario, Prueba práctica / desempeño, Portafolio o Proyecto integrador).
+10. Indica que el producto final pueda imprimirse o exportarse en PDF, hoja carta, con espacio para firma y fecha.
+
+Entrega en formato claro, estructurado y listo para su aplicación docente.`;
+
+  document.getElementById('promptActividad').innerText=prompt;
+  document.getElementById('resultActividad').style.display='block';
+  promptGenerado=true;
+  // Habilitar paso 2 visualmente
+  const stepper2=document.getElementById('stepper2');
+  stepper2.querySelector('.form-stepper-circle').classList.remove('text-muted');
+  stepper2.querySelector('.label').classList.remove('text-muted');
+}
+
+function onInstrumentChange(){
+  const v=document.getElementById('instrumento').value;
+  document.getElementById('optsRubrica').style.display=(v==='Rúbrica')?'grid':'none';
+  document.getElementById('optsCuestionario').style.display=(v==='Cuestionario')?'grid':'none';
+  document.getElementById('optsDesempeno').style.display=(v==='Prueba práctica / desempeño')?'grid':'none';
+}
+
+function generarPromptEvaluacion(){
+  const actividadGenerada=document.getElementById('actividadGenerada').value.trim();
+  const instrumento=document.getElementById('instrumento').value;
+  if(!actividadGenerada){alert('Pega la actividad generada en la Fase 1.');return;}
+  if(!instrumento){alert('Selecciona un instrumento de evaluación.');return;}
+
+  // Controles comunes
+  const umbral=parseInt(document.getElementById('umbral').value||'70',10);
+  const tipografia=parseInt(document.getElementById('tipografiaPt').value||'11',10);
+  const margen=parseFloat(document.getElementById('margenCm').value||'2');
+
+  // Específicos
+  const rubricaCriterios=parseInt(document.getElementById('rubricaCriterios')?.value||'5',10);
+  const rubricaNiveles=(document.getElementById('rubricaNiveles')?.value||'Insuficiente, Básico, Satisfactorio, Sobresaliente').split(',').map(s=>s.trim()).filter(Boolean).join(', ');
+  const reactivosTotal=parseInt(document.getElementById('reactivosTotal')?.value||'12',10);
+  const tiempoMin=parseInt(document.getElementById('tiempoMin')?.value||'30',10);
+  const tiempoMax=parseInt(document.getElementById('tiempoMax')?.value||'45',10);
+  const incluyeSeguridad=(document.getElementById('incluyeSeguridad')?.value||'sí')==='sí';
+
+  // Plantillas por instrumento
+  const T={
+    'Rúbrica': (body)=>`Eres un experto en evaluación universitaria en México, con dominio del estándar EC0076 del CONOCER.
+
+Con base en la siguiente actividad:
+"""
+${body}
+"""
+
+Genera una **RÚBRICA ANALÍTICA** lista para imprimir (una hoja tamaño carta) que cumpla:
+- ${rubricaCriterios} **criterios** alineados a competencias y evidencias.
+- **Niveles de desempeño**: ${rubricaNiveles} (descriptores observables y verificables).
+- **Ponderaciones** por criterio que sumen 100.
+- **Tabla** con columnas: Criterio | ${rubricaNiveles.split(', ').join(' | ')} | Ponderación.
+- **Encabezado institucional** (TecNM), campos para: Asignatura, Tema, Nombre del estudiante, Grupo, Docente, Fecha, Firma del docente.
+- **Indicaciones de uso** breves (umbral de logro ≥ ${umbral}/100).
+- **Estilo**: tipografía ${tipografia} pt, márgenes ${margen} cm, lenguaje claro.
+
+Entrega solo la rúbrica final, sin explicaciones adicionales.`,
+
+    'Cuestionario': (body)=>`Eres un experto en evaluación universitaria en México, con dominio del estándar EC0076 del CONOCER.
+
+Con base en la siguiente actividad:
+"""
+${body}
+"""
+
+Genera un **CUESTIONARIO** listo para imprimir (una hoja tamaño carta) que cumpla:
+- ${reactivosTotal} **reactivos mixtos** alineados a Bloom: ~1/3 recordar (opción múltiple), ~1/3 aplicar (problema corto), ~1/3 analizar (respuesta abierta breve). Incluye **clave** y criterios de calificación.
+- **Tabla de calificación**: Reactivo | Respuesta esperada / Criterios | Puntaje (total 100; umbral ≥ ${umbral}).
+- **Instrucciones** al estudiante (tiempo sugerido ${tiempoMin} minutos, materiales permitidos/no permitidos).
+- **Encabezado institucional** y campos para nombre, grupo, fecha y firma del docente.
+- **Estilo**: tipografía ${tipografia} pt, márgenes ${margen} cm, lenguaje técnico claro.
+
+Entrega el cuestionario y la tabla de calificación (clave) al final.`,
+
+    'Prueba práctica / desempeño': (body)=>`Eres un experto en evaluación universitaria en México, con dominio del estándar EC0076 del CONOCER.
+
+Con base en la siguiente actividad:
+"""
+${body}
+"""
+
+Diseña una **PRUEBA PRÁCTICA / DESEMPEÑO** lista para imprimir (hoja carta) que incluya:
+- **Procedimiento** estandarizado (pasos, condiciones de prueba, recursos y tiempo máximo ${tiempoMax} min).
+- **Lista de cotejo** de requisitos críticos (Sí/No) y **matriz de criterios** con indicadores observables, niveles (No logrado, Parcial, Logrado, Destacado) y puntajes que sumen 100 (umbral ≥ ${umbral}).
+- **Evidencias** requeridas (capturas, códigos, reporte breve) y criterios de aceptación.
+${incluyeSeguridad?'- **Seguridad y buenas prácticas** y causales de descalificación.\n':''}- **Encabezado institucional** + espacios para firmas (docente y estudiante) y fecha.
+- **Estilo**: tipografía ${tipografia} pt, márgenes ${margen} cm.
+
+Entrega solo los formatos (lista de cotejo y matriz) con instrucciones de aplicación.`,
+
+    'Portafolio': (body)=>`Eres un experto en evaluación universitaria en México, con dominio del estándar EC0076 del CONOCER.
+
+Con base en la siguiente actividad:
+"""
+${body}
+"""
+
+Elabora un **INSTRUMENTO PARA PORTAFOLIO** (una hoja carta) que contenga:
+- **Listado de evidencias mínimas** (planificación, borradores, código comentado, pruebas, reflexión final) con criterios de pertinencia y calidad.
+- **Rúbrica breve** (3–4 criterios clave) con niveles de desempeño y ponderaciones (total 100; umbral ≥ ${umbral}).
+- **Checklist** de integridad documental (nombres, fechas, formato, originalidad).
+- **Indicaciones** de selección, curaduría y reflexión (200–300 palabras).
+- **Encabezado institucional** y campos de identificación y firma.
+- **Estilo**: tipografía ${tipografia} pt, márgenes ${margen} cm.
+
+Entrega el instrumento en una sola página con estructura clara.`,
+
+    'Proyecto integrador': (body)=>`Eres un experto en evaluación universitaria en México, con dominio del estándar EC0076 del CONOCER.
+
+Con base en la siguiente actividad:
+"""
+${body}
+"""
+
+Genera el **INSTRUMENTO DE EVALUACIÓN PARA PROYECTO INTEGRADOR** (hoja carta) que incluya:
+- **Entregables e hitos** (plan, prototipo, pruebas, reporte) con fechas sugeridas.
+- **Rúbrica analítica** de 5–6 criterios (planeación, calidad técnica, validación/pruebas, documentación, presentación/defensa, colaboración si aplica) con 4 niveles y ponderaciones (total 100; umbral ≥ ${umbral}).
+- **Esquema de coevaluación y heteroevaluación** (p. ej., 10% coevaluación, 90% docente) con formato breve de coevaluación.
+- **Encabezado institucional** y campos para firmas.
+- **Estilo**: tipografía ${tipografia} pt, márgenes ${margen} cm.
+
+Entrega el instrumento listo para aplicar, sin texto explicativo adicional.`
+  };
+
+  const builder=T[instrumento] || ((body)=>`Eres un experto en evaluación universitaria en México (EC0076). Con base en la actividad siguiente, genera un instrumento ${instrumento.toLowerCase()} listo para imprimir en una hoja carta, con criterios claros, puntajes que sumen 100, encabezado institucional y espacio para firmas.\n\n"""\n${body}\n"""`);
+
+  const prompt = builder(actividadGenerada) + `\n\n**Formato y estilo comunes**: usa tipografía ${tipografia} pt, márgenes ${margen} cm, tablas compactas y lenguaje claro. Presenta solo el instrumento final listo para impresión o PDF.`;
+
+  document.getElementById('promptEvaluacion').innerText=prompt;
+  document.getElementById('resultEvaluacion').style.display='block';
+}
+
+function copyByBtn(e){
+  const id=e.target.getAttribute('data-copy');
+  if(!id) return; const text=document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(()=>alert('Texto copiado al portapapeles'),()=>alert('Error al copiar el texto'));
+}
+
+// Eventos
+ document.getElementById('btnGenerar1').addEventListener('click', generarPromptActividad);
+ document.getElementById('btnPrev2').addEventListener('click', ()=>navigateToFormStep(1));
+ document.getElementById('btnGenerar2').addEventListener('click', generarPromptEvaluacion);
+ document.getElementById('stepper2').addEventListener('click', ()=>navigateToFormStep(2));
+ document.getElementById('stepper1').addEventListener('click', ()=>navigateToFormStep(1));
+ document.querySelectorAll('.copy-btn').forEach(btn=>btn.addEventListener('click', copyByBtn));
+ document.getElementById('instrumento').addEventListener('change', onInstrumentChange);
+
+// Inicial
+navigateToFormStep(1);
+</script>
+</body>
+</html>
